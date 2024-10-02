@@ -16,7 +16,7 @@ export default {
   display: flex;
   flex-direction: column;
   background-color: white;
-  padding-top: 2rem;
+  padding-top: 1rem;
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
 </style>

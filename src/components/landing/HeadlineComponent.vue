@@ -1,5 +1,5 @@
 <template>
-  <section class="landing">
+  <section class="headline">
     <div>
       <div class="content flex flex-col gap-6 align-middle items-center">
         <div class="headlines flex flex-col font-bold text-5xl gap-3 items-center">
@@ -21,6 +21,9 @@
       </div>
       <div class="image relative mt-[-230px] z-0">
         <img src="/assets/img/headline-images.png" alt="Landing Image" class="landing-image" />
+      </div>
+      <div class="image relative">
+        <img src="/assets/img/divider-flag.png" alt="Divider Flag" class="divider-flag" />
       </div>
     </div>
   </section>
