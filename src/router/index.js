@@ -1,14 +1,19 @@
-// src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router'
-import LandingPage from '@/pages/LandingPage.vue'
-import HomePage from '@/pages/sme/DashboardPage.vue'
+// import LandingPage from '@/pages/LandingPage.vue'
+import DashboardPage from '@/pages/sme/DashboardPage.vue'
+import SearchPage from '@/pages/sme/SearchPage.vue'
 
 const routes = [
   {
-    path: '/',
-    name: 'HomePage',
-    component: HomePage
-  }
+    path: '/dashboard',
+    name: 'DashboardPage',
+    component: DashboardPage
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: SearchPage,
+  },
 ]
 
 const router = createRouter({
