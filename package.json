@@ -11,8 +11,12 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@heroicons/vue": "^2.1.5",
     "vue": "^3.4.29",
+=======
+    "vue": "^3.5.11",
+>>>>>>> 0cff90213833ac11afb98b18bf5c029a43a18d71
     "vue-router": "^4.4.5"
   },
   "devDependencies": {

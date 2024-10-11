@@ -1,9 +1,29 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// import LandingPage from '@/pages/LandingPage.vue'
+import LandingPage from '@/pages/LandingPage.vue'
+import LoginPage from '@/pages/LoginPage.vue'
+import SignUp from '@/pages/SignUp.vue'
 import DashboardPage from '@/pages/sme/DashboardPage.vue'
 import SearchPage from '@/pages/sme/SearchPage.vue'
 
 const routes = [
+  {
+    path: '/',
+    name: 'LandingPage',
+    component: LandingPage,
+    meta: { title: 'Welcome to Loom!' }
+  },
+  {
+    path: '/login',
+    name: 'LoginPage',
+    component: LoginPage,
+    meta: { title: 'Log in to Loom' }
+  },
+  {
+    path: '/sign-up',
+    name: 'SignUpPage',
+    component: SignUp,
+    meta: { title: 'Sign up to Loom' }
+  },
   {
     path: '/dashboard',
     name: 'DashboardPage',
