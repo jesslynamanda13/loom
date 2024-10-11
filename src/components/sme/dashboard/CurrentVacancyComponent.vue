@@ -28,7 +28,7 @@
               <h3 class="text-lg font-semibold">Instagram Admin</h3>
             </div>
   
-            <div class="flex items-center text-orange-500 gap-1">
+            <div class="flex items-center gap-1" style="color: #FEA31B;">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -55,7 +55,7 @@
               <h3 class="text-lg font-semibold">Graphic Designer</h3>
             </div>
   
-            <div class="flex items-center text-orange-500 gap-1">
+            <div class="flex items-center gap-1" style="color: #FEA31B;">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
