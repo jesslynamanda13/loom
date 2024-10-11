@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LandingPage from '@/pages/LandingPage.vue'
 import LoginPage from '@/pages/LoginPage.vue'
 import SignUp from '@/pages/SignUp.vue'
+import DashboardPage from '@/pages/sme/DashboardPage.vue'
+import SearchPage from '@/pages/sme/SearchPage.vue'
 
 const routes = [
   {
@@ -21,7 +23,17 @@ const routes = [
     name: 'SignUpPage',
     component: SignUp,
     meta: { title: 'Sign up to Loom' }
-  }
+  },
+  {
+    path: '/dashboard',
+    name: 'DashboardPage',
+    component: DashboardPage
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: SearchPage,
+  },
 ]
 
 const router = createRouter({
