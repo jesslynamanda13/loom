@@ -27,24 +27,28 @@ const routes = [
     meta: { title: 'Sign up to Loom' }
   },
   {
-    path: '/dashboard',
+    path: '/sme/dashboard',
     name: 'DashboardPage',
-    component: DashboardPage
+    component: DashboardPage,
+    meta: { title: 'My Dashboard' }
   },
   {
-    path: '/search',
+    path: '/sme/search',
     name: 'Search',
     component: SearchPage,
+    meta: { title: 'Find Your Dream Talent' }
   },
   {
-    path: '/postjob',
+    path: '/sme/postjob',
     name: 'PostJobPage',
     component: PostJobPage,
+    meta: { title: 'Post a Job' }
   },
   {
-    path: '/profile',
+    path: '/sme/profile',
     name: 'ProfilePage',
     component: ProfilePage,
+    meta: { title: 'My Profile' }
   },
 ]
 
