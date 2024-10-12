@@ -5,6 +5,8 @@ import SignUp from '@/pages/SignUp.vue'
 import ExploreJobsPage from '@/pages/talent/ExploreJobsPage.vue'
 import DashboardPage from '@/pages/sme/DashboardPage.vue'
 import SearchPage from '@/pages/sme/SearchPage.vue'
+import PostJobPage from '@/pages/sme/PostJobPage.vue'
+import ProfilePage from '@/pages/sme/ProfilePage.vue'
 
 const routes = [
   {
@@ -40,6 +42,16 @@ const routes = [
     path: '/search',
     name: 'Search',
     component: SearchPage
+  },
+  {
+    path: '/postjob',
+    name: 'PostJobPage',
+    component: PostJobPage
+  },
+  {
+    path: '/profile',
+    name: 'ProfilePage',
+    component: ProfilePage
   }
 ]
 
