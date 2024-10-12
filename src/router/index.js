@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LandingPage from '@/pages/LandingPage.vue'
 import LoginPage from '@/pages/LoginPage.vue'
 import SignUp from '@/pages/SignUp.vue'
+import ExploreJobsPage from '@/pages/talent/ExploreJobsPage.vue'
 import DashboardPage from '@/pages/sme/DashboardPage.vue'
 import SearchPage from '@/pages/sme/SearchPage.vue'
 import PostJobPage from '@/pages/sme/PostJobPage.vue'
@@ -25,6 +26,12 @@ const routes = [
     name: 'SignUpPage',
     component: SignUp,
     meta: { title: 'Sign up to Loom' }
+  },
+  {
+    path: '/talent/explore-jobs',
+    name: 'ExploreJobsPage',
+    component: ExploreJobsPage,
+    meta: { title: 'Explore Jobs' }
   },
   {
     path: '/sme/dashboard',
