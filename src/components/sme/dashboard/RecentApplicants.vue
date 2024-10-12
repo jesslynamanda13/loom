@@ -1,5 +1,5 @@
 <template>
-    <div :style="{ width: containerWidth}" class="p-4 bg-white rounded-lg border border-gray-300 mx-5 flex-1">
+    <div :style="{ width: containerWidth}" class="p-4 bg-white rounded-lg border border-gray-300 flex-1">
         <header class="mb-4 flex items-center justify-between">
             <h2 class="text-lg font-semibold flex items-center">
                 <svg

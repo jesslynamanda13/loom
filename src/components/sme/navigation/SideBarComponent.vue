@@ -28,17 +28,17 @@
         </button>
       </div>
 
-      <div class="p-3 relative bg-white rounded-lg shadow dark:bg-gray-100 mt-2">
-        <div class="flex items-center space-x-3">
-          <img src="/public/assets/img/store-logo.png" alt="AngelStore" class="h-10 w-10 rounded-full" />
-          <div v-if="!isCollapsed" class="flex flex-col">
-            <h3 class="font-semibold">AngelStore</h3>
-            <p class="text-sm text-gray-400">Accessories</p>
+      <router-link to="/profile">
+        <div :class="['p-1', 'relative', 'rounded-lg', 'shadow','mt-2', 'mr-2', 'ml-2', 'mb-3', backgroundClass]">
+          <div class="flex items-center space-x-3">
+            <img src="/public/assets/img/store-logo.png" alt="AngelStore" class="h-10 w-10 rounded-full" />
+            <div v-if="!isCollapsed" class="flex flex-col">
+              <h3 class="font-semibold">AngelStore</h3>
+              <p class="text-sm text-gray-400">Arts and Crafts</p>
+            </div>
           </div>
         </div>
-      </div>
-
-      <hr class="border-gray-300 my-2" />
+      </router-link>
 
       <ul class="space-y-2 p-3">
         <li v-for="item in menuItems" :key="item.title">
@@ -94,6 +94,7 @@ export default {
         { 
           title: "Post a Job", 
           icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10.5v6m3-3H9m4.06-7.19-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" /></svg>`,
+          path: '/postjob',
         },
         { 
           title: "Notification", 
@@ -115,6 +116,9 @@ export default {
   computed: {
     sidebarClass() {
       return this.isCollapsed ? 'w-16' : 'w-64';
+    },
+    backgroundClass() {
+      return this.$route.path === '/profile' ? 'bg-orange-100' : 'bg-white';
     },
   },
 };
