@@ -4,6 +4,7 @@ import LoginPage from '@/pages/LoginPage.vue'
 import SignUp from '@/pages/SignUp.vue'
 import DashboardPage from '@/pages/sme/DashboardPage.vue'
 import SearchPage from '@/pages/sme/SearchPage.vue'
+import PostJobPage from '@/pages/sme/PostJobPage.vue'
 
 const routes = [
   {
@@ -33,6 +34,11 @@ const routes = [
     path: '/search',
     name: 'Search',
     component: SearchPage,
+  },
+  {
+    path: '/postjob',
+    name: 'PostJobPage',
+    component: PostJobPage,
   },
 ]
 
