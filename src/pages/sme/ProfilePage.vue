@@ -6,7 +6,7 @@
         </div>
   
         <div :class="[mainContentWidthClass, 'p-4']">
-            <PostJobFormComponent />
+            <SMEProfileDetailComponent />
         </div>
       </section>
     </div>  
@@ -14,31 +14,32 @@
 
 <script>
     import SideBarComponent from '@/components/sme/navigation/SideBarComponent.vue';
-    import PostJobFormComponent from '@/components/sme/post/PostJobFormComponent.vue';
+    import SMEProfileDetailComponent from '@/components/sme/profile/SMEProfileDetailComponent.vue';
 
-    export default {
-        name: 'PostJobPage',
+    export default{
+        name: 'ProfilePage',
         components: {
             SideBarComponent,
-            PostJobFormComponent,
+            SMEProfileDetailComponent,
         },
         data() {
             return {
-            isSidebarCollapsed: false,
+                isSidebarCollapsed: false,
             };
         },
         computed: {
             sidebarWidthClass() {
-            return this.isSidebarCollapsed ? 'w-16' : 'w-64';
+                return this.isSidebarCollapsed ? 'w-16' : 'w-64';
             },
             mainContentWidthClass() {
-            return this.isSidebarCollapsed ? 'w-full' : 'flex-grow';
+                return this.isSidebarCollapsed ? 'w-full' : 'flex-grow';
             },
         },
         methods: {
             toggleSidebar() {
-            this.isSidebarCollapsed = !this.isSidebarCollapsed;
+                this.isSidebarCollapsed = !this.isSidebarCollapsed;
             },
         },
-    };
+    }
+
 </script>

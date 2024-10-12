@@ -28,17 +28,17 @@
         </button>
       </div>
 
-      <div class="p-3 relative bg-white rounded-lg shadow dark:bg-gray-100 mt-2">
-        <div class="flex items-center space-x-3">
-          <img src="/public/assets/img/store-logo.png" alt="AngelStore" class="h-10 w-10 rounded-full" />
-          <div v-if="!isCollapsed" class="flex flex-col">
-            <h3 class="font-semibold">AngelStore</h3>
-            <p class="text-sm text-gray-400">Accessories</p>
+      <router-link to="/profile">
+        <div :class="['p-1', 'relative', 'rounded-lg', 'shadow','mt-2', 'mr-2', 'ml-2', 'mb-3', backgroundClass]">
+          <div class="flex items-center space-x-3">
+            <img src="/public/assets/img/store-logo.png" alt="AngelStore" class="h-10 w-10 rounded-full" />
+            <div v-if="!isCollapsed" class="flex flex-col">
+              <h3 class="font-semibold">AngelStore</h3>
+              <p class="text-sm text-gray-400">Arts and Crafts</p>
+            </div>
           </div>
         </div>
-      </div>
-
-      <hr class="border-gray-300 my-2" />
+      </router-link>
 
       <ul class="space-y-2 p-3">
         <li v-for="item in menuItems" :key="item.title">
@@ -116,6 +116,9 @@ export default {
   computed: {
     sidebarClass() {
       return this.isCollapsed ? 'w-16' : 'w-64';
+    },
+    backgroundClass() {
+      return this.$route.path === '/profile' ? 'bg-orange-100' : 'bg-white';
     },
   },
 };
