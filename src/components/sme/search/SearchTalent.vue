@@ -39,6 +39,7 @@
     },
     methods: {
       onSearch() {
+        console.log('Search Query:', this.searchQuery);
         this.$emit('search-talent', this.searchQuery); 
       }
     }

@@ -7,6 +7,7 @@ import DashboardPage from '@/pages/sme/DashboardPage.vue'
 import SearchPage from '@/pages/sme/SearchPage.vue'
 import PostJobPage from '@/pages/sme/PostJobPage.vue'
 import ProfilePage from '@/pages/sme/ProfilePage.vue'
+import TalentDetailComponent from '@/components/sme/search/TalentDetailComponent.vue'
 
 const routes = [
   {
@@ -57,6 +58,12 @@ const routes = [
     component: ProfilePage,
     meta: { title: 'My Profile' }
   },
+  {
+    path: '/sme/talent/:id',
+    name: 'TalentDetailPage',
+    component: TalentDetailComponent,
+    meta: { title: 'Talent Details' }
+  }
 ]
 
 const router = createRouter({
