@@ -7,6 +7,7 @@ import DashboardPage from '@/pages/sme/DashboardPage.vue'
 import SearchPage from '@/pages/sme/SearchPage.vue'
 import PostJobPage from '@/pages/sme/PostJobPage.vue'
 import ProfilePage from '@/pages/sme/ProfilePage.vue'
+import TalentDetailComponent from '@/components/sme/search/TalentDetailComponent.vue'
 
 const routes = [
   {
@@ -34,24 +35,34 @@ const routes = [
     meta: { title: 'Explore Jobs' }
   },
   {
-    path: '/dashboard',
+    path: '/sme/dashboard',
     name: 'DashboardPage',
-    component: DashboardPage
+    component: DashboardPage,
+    meta: { title: 'My Dashboard' }
   },
   {
-    path: '/search',
+    path: '/sme/search',
     name: 'Search',
-    component: SearchPage
+    component: SearchPage,
+    meta: { title: 'Find Your Dream Talent' }
   },
   {
-    path: '/postjob',
+    path: '/sme/postjob',
     name: 'PostJobPage',
-    component: PostJobPage
+    component: PostJobPage,
+    meta: { title: 'Post a Job' }
   },
   {
-    path: '/profile',
+    path: '/sme/profile',
     name: 'ProfilePage',
-    component: ProfilePage
+    component: ProfilePage,
+    meta: { title: 'My Profile' }
+  },
+  {
+    path: '/sme/talent/:id',
+    name: 'TalentDetailPage',
+    component: TalentDetailComponent,
+    meta: { title: 'Talent Details' }
   }
 ]
 
