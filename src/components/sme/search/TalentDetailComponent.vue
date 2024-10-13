@@ -13,7 +13,7 @@
             </span>
           </h1>
           <p class="text-gray-500 mt-1">{{ talent.jobType }}</p>
-          <p class="text-blue-500 text-sm mt-2">{{ talent.email }}</p>
+          <p class="text-yellow-500 text-sm mt-2">{{ talent.email }}</p>
         </div>
       </div>
   
@@ -71,8 +71,8 @@
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
           </svg>
-          <a :href="talent.cv" target="_blank" class="text-blue-500 font-semibold hover:underline">
-            Download CV
+          <a :href="talent.cv" target="_blank" class="text-gray-700 font-semibold hover:underline">
+            {{ talent.name }}'s Curriculum Vitae
           </a>
         </div>
       </div>
@@ -83,7 +83,7 @@
           <div v-for="(project, index) in talent.portfolio" :key="index" class="p-4 bg-gray-100 rounded-lg">
             <h3 class="font-semibold text-lg text-gray-800">{{ project.title }}</h3>
             <p class="text-gray-600">{{ project.description }}</p>
-            <a :href="project.link" target="_blank" class="text-blue-500 hover:underline mt-1 block">View Project</a>
+            <a :href="project.link" target="_blank" class="text-yellow-500 hover:underline mt-1 block">View Project</a>
           </div>
         </div>
       </div>
