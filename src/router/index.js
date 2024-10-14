@@ -8,6 +8,8 @@ import SearchPage from '@/pages/sme/SearchPage.vue'
 import PostJobPage from '@/pages/sme/PostJobPage.vue'
 import ProfilePage from '@/pages/sme/ProfilePage.vue'
 import TalentDetailComponent from '@/components/sme/search/TalentDetailComponent.vue'
+import MyJobsPage from '@/pages/talent/MyJobsPage.vue'
+import JobDetailsPage from '@/pages/talent/JobDetailsPage.vue'
 
 const routes = [
   {
@@ -33,6 +35,30 @@ const routes = [
     name: 'ExploreJobsPage',
     component: ExploreJobsPage,
     meta: { title: 'Explore Jobs' }
+  },
+  {
+    path: '/talent/my-jobs',
+    name: 'MyJobsPage',
+    component: MyJobsPage,
+    meta: { title: 'My Jobs' }
+  },
+  {
+    path: '/talent/job-details',
+    name: 'JobDetailsPage',
+    component: JobDetailsPage,
+    meta: { title: 'Job Details' }
+  },
+  {
+    path: '/talent/my-jobs',
+    name: 'MyJobsPage',
+    component: MyJobsPage,
+    meta: { title: 'My Jobs' }
+  },
+  {
+    path: '/talent/job-details',
+    name: 'JobDetailsPage',
+    component: JobDetailsPage,
+    meta: { title: 'Job Details' }
   },
   {
     path: '/sme/dashboard',
