@@ -258,7 +258,7 @@
           </div>
         </div>
       </div>
-      <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         <JobCardComponent
           companyName="Tenue de Attire"
           companyLogo="/assets/img/company-logo.png"

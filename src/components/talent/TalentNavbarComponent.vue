@@ -4,10 +4,20 @@
     <div class="flex items-center space-x-12">
       <img src="/assets/img/loom-logo.png" alt="Logo" class="w-24" />
       <div class="hidden lg:flex space-x-8 mt-2 font-medium">
-        <a :class="getNavClass('explore-jobs')" @click="navigate('explore-jobs')" href="#">
+        <a
+          :class="getNavClass('explore-jobs')"
+          @click="navigate('/talent/explore-jobs')"
+          href="/talent/explore-jobs"
+        >
           Explore Jobs
         </a>
-        <a :class="getNavClass('my-jobs')" @click="navigate('my-jobs')" href="#"> My Jobs </a>
+        <a
+          :class="getNavClass('my-jobs')"
+          @click="navigate('/talent/my-jobs')"
+          href="/talent/my-jobs"
+        >
+          My Jobs
+        </a>
       </div>
     </div>
 
