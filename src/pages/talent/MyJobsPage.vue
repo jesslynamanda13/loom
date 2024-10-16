@@ -93,7 +93,7 @@
 <script>
 import FooterComponent from '@/components/FooterComponent.vue'
 import SavedJobComponent from '@/components/talent/SavedJobComponent.vue'
-import TalentNavbarComponent from '@/components/talent/TalentNavbarComponent.vue'
+import TalentNavbarComponent from '@/components/talent/navigation/TalentNavbarComponent.vue'
 export default {
   name: 'MyJobsPage',
   components: {

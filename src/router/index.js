@@ -10,6 +10,7 @@ import ProfilePage from '@/pages/sme/ProfilePage.vue'
 import TalentDetailComponent from '@/components/sme/search/TalentDetailComponent.vue'
 import MyJobsPage from '@/pages/talent/MyJobsPage.vue'
 import JobDetailsPage from '@/pages/talent/JobDetailsPage.vue'
+import TalentProfilePage from '@/pages/talent/TalentProfilePage.vue'
 
 const routes = [
   {
@@ -53,6 +54,12 @@ const routes = [
     name: 'MyJobsPage',
     component: MyJobsPage,
     meta: { title: 'My Jobs' }
+  },
+  {
+    path: '/talent/profile',
+    name: 'TalentProfilePage',
+    component: TalentProfilePage,
+    meta: { title: 'Profile' }
   },
   {
     path: '/talent/job-details',
