@@ -58,6 +58,7 @@
       </div>
 
       <button
+        @click="applyJob"
         class="text-xs bg-black text-white font-semibold px-4 py-2 rounded-md hover:bg-gray-800 flex justify-center items-center w-full"
       >
         <svg
@@ -98,6 +99,9 @@ export default {
   methods: {
     navigateToJobDetails() {
       this.$router.push({ name: 'JobDetailsPage' })
+    },
+    applyJob() {
+      this.$emit('applyJob')
     }
   }
 }

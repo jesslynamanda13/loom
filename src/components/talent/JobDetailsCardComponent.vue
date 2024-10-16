@@ -26,7 +26,10 @@
           >
         </div>
         <div class="flex flex-row space-x-4 mt-6">
-          <button class="bg-black text-white flex items-center px-4 py-2 rounded-md text-sm">
+          <button
+            @click="applyNow"
+            class="bg-black text-white flex items-center px-4 py-2 rounded-md text-sm"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="w-5 h-5 mr-2"
@@ -82,6 +85,12 @@
 <script>
 export default {
   name: 'JobDetailsCardComponent',
+  methods: {
+    applyNow() {
+      this.$emit('apply-now-clicked')
+    }
+  },
+
   props: {
     postedTime: {
       type: String,

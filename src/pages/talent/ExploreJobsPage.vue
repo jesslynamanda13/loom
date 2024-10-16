@@ -270,6 +270,7 @@
           salary="Rp. 600.000/week"
           :skills="['Mobile Development', 'UI/UX Design']"
           jobDescription="As a Mobile Developer at Tenue d'Attire, you will play a key role in designing,..."
+          @applyJob="showModal = true"
         />
 
         <JobCardComponent
@@ -337,6 +338,12 @@
         />
       </div>
     </div>
+    <div
+      v-if="showModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+    >
+      <JobApplicationModalComponent @closeModal="showModal = false" />
+    </div>
     <div class="mt-12">
       <FooterComponent />
     </div>
@@ -344,18 +351,22 @@
 </template>
 
 <script>
-import TalentNavbarComponent from '@/components/talent/TalentNavbarComponent.vue'
+import TalentNavbarComponent from '@/components/talent/navigation/TalentNavbarComponent.vue'
 import JobCardComponent from '@/components/talent/JobCardComponent.vue'
 import FooterComponent from '@/components/FooterComponent.vue'
+import JobApplicationModalComponent from '@/components/talent/JobApplicationModalComponent.vue'
+
 export default {
   name: 'ExploreJobsPage',
   components: {
     TalentNavbarComponent,
     JobCardComponent,
-    FooterComponent
+    FooterComponent,
+    JobApplicationModalComponent
   },
   data() {
     return {
+      showModal: false,
       isWorkArrangementDropdownOpen: false,
       isJobTypeDropdownOpen: false,
       selectedWorkArrangement: 'Work Arrangement',

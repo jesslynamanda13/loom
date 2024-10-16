@@ -29,6 +29,7 @@
             'Strong problem-solving and analytical skills.',
             'Ability to work in a collaborative team environment.'
           ]"
+          @apply-now-clicked="showModal = true"
         />
         <div class="right">
           <p class="text-lg font-semibold mb-4">Posted by</p>
@@ -71,18 +72,26 @@
         </div>
       </div>
     </div>
+
     <div class="mt-12">
       <FooterComponent />
+    </div>
+    <div
+      v-if="showModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+    >
+      <JobApplicationModalComponent @closeModal="showModal = false" />
     </div>
   </div>
 </template>
 
 <script>
-import TalentNavbarComponent from '@/components/talent/TalentNavbarComponent.vue'
+import TalentNavbarComponent from '@/components/talent/navigation/TalentNavbarComponent.vue'
 import FooterComponent from '@/components/FooterComponent.vue'
 import JobDetailsCardComponent from '@/components/talent/JobDetailsCardComponent.vue'
 import SMEInformation from '@/components/talent/SMEInformationComponent.vue'
 import OtherJobsComponent from '@/components/talent/OtherJobsComponent.vue'
+import JobApplicationModalComponent from '@/components/talent/JobApplicationModalComponent.vue'
 export default {
   name: 'JobDetailsPage',
   components: {
@@ -90,7 +99,13 @@ export default {
     FooterComponent,
     JobDetailsCardComponent,
     SMEInformation,
-    OtherJobsComponent
+    OtherJobsComponent,
+    JobApplicationModalComponent
+  },
+  data() {
+    return {
+      showModal: false // Control the modal visibility
+    }
   }
 }
 </script>
