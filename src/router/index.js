@@ -11,6 +11,8 @@ import TalentDetailComponent from '@/components/sme/search/TalentDetailComponent
 import MyJobsPage from '@/pages/talent/MyJobsPage.vue'
 import JobDetailsPage from '@/pages/talent/JobDetailsPage.vue'
 import TalentProfilePage from '@/pages/talent/TalentProfilePage.vue'
+import MyJobPage from '@/pages/sme/MyJobPage.vue'
+import JobDetailComponent from '@/components/sme/job/JobDetailComponent.vue'
 
 const routes = [
   {
@@ -86,6 +88,12 @@ const routes = [
     meta: { title: 'Post a Job' }
   },
   {
+    path: '/sme/myjob',
+    name: 'MyJobPage',
+    component: MyJobPage,
+    meta: { title: 'Job Openings' }
+  },
+  {
     path: '/sme/profile',
     name: 'ProfilePage',
     component: ProfilePage,
@@ -96,6 +104,12 @@ const routes = [
     name: 'TalentDetailPage',
     component: TalentDetailComponent,
     meta: { title: 'Talent Details' }
+  },
+  {
+    path: '/sme/job/:id',
+    name: 'JobDetailPage',
+    component: JobDetailComponent,
+    meta: { title: 'Job Details' }
   }
 ]
 
