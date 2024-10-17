@@ -24,7 +24,8 @@
       <div
         v-for="(vacancy, index) in vacancies"
         :key="index"
-        class="border rounded-lg shadow-md p-4 bg-white"
+        @click="goToJobDetail(vacancy)"
+        class="cursor-pointer border rounded-lg shadow-md p-4 bg-white"
       >
         <div class="flex justify-between">
           <div
@@ -43,7 +44,7 @@
             </svg>
           </div>
           <p class="text-gray-500 text-sm">
-            Posted {{ vacancy.postedDate }}
+            Posted {{ vacancy.createdAt }}
           </p>
         </div>
         <h2 class="text-xl font-semibold mt-2">{{ vacancy.title }}</h2>
@@ -73,20 +74,14 @@
 <script>
   export default {
     name: "CurrentVacancies",
+    props:{
+      vacancies:{
+        type: Array,
+        required: true
+      }
+    },
     data() {
       return {
-        vacancies: [
-          {
-            title: "Instagram Admin",
-            postedDate: "3 October 2024",
-            applicants: 37,
-          },
-          {
-            title: "Graphic Designer",
-            postedDate: "2 October 2024",
-            applicants: 22,
-          },
-        ],
         bgColors: ["bg-red-100", "bg-blue-100", "bg-green-100", "bg-purple-100"],
         iconColors: ["text-red-500", "text-blue-500", "text-green-500", "text-purple-500"],
       };
@@ -97,6 +92,9 @@
       },
       randomIconColor(index) {
         return this.iconColors[index % this.iconColors.length];
+      },
+      goToJobDetail(job){
+        this.$emit('show-detail', job);
       },
     },
   };

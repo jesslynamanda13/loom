@@ -119,7 +119,7 @@ export default {
       return this.isCollapsed ? 'w-16' : 'w-64';
     },
     backgroundClass() {
-      return this.$route.path === '/profile' ? 'bg-orange-100' : 'bg-white';
+      return this.$route.path === '/sme/profile' ? 'bg-orange-100' : 'bg-white';
     },
   },
 };

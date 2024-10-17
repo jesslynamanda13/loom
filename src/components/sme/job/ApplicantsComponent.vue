@@ -286,11 +286,11 @@
             case "Interviewed":
                 return "bg-yellow-100 text-yellow-700";
             case "Hired":
-                return "bg-blue-100 text-blue-700";
+                return "bg-green-100 text-green-700";
             case "Rejected":
                 return "bg-pink-100 text-pink-700";
             default:
-                return "bg-green-100 text-green-700";
+                return "bg-blue-100 text-blue-700";
         }
       },
       sortByName() {
