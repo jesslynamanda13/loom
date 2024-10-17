@@ -4,10 +4,20 @@
     <div class="flex items-center space-x-12">
       <img src="/assets/img/loom-logo.png" alt="Logo" class="w-24" />
       <div class="hidden lg:flex space-x-8 mt-2 font-medium">
-        <a :class="getNavClass('explore-jobs')" @click="navigate('explore-jobs')" href="#">
+        <a
+          :class="getNavClass('explore-jobs')"
+          @click="navigate('/talent/explore-jobs')"
+          href="/talent/explore-jobs"
+        >
           Explore Jobs
         </a>
-        <a :class="getNavClass('my-jobs')" @click="navigate('my-jobs')" href="#"> My Jobs </a>
+        <a
+          :class="getNavClass('my-jobs')"
+          @click="navigate('/talent/my-jobs')"
+          href="/talent/my-jobs"
+        >
+          My Jobs
+        </a>
       </div>
     </div>
 
@@ -30,10 +40,7 @@
         <span class="text-sm">Notifications</span>
       </button>
 
-      <!-- Profile Icon -->
-      <div class="w-10 h-10 rounded-full bg-gray-300">
-        <!-- Profile Picture Placeholder -->
-      </div>
+      <button class="w-10 h-10 rounded-full bg-gray-300" @click="navigateProfile"></button>
     </div>
 
     <!-- Hamburger Menu Button (Small Screen) -->
@@ -86,13 +93,10 @@
         <img src="/assets/img/notif-icon.png" class="w-4" />
         <span>Notifications</span>
       </button>
-
-      <div
-        class="border-t border-gray-200 px-4 py-2 flex items-center space-x-2 text-gray-500 hover:bg-gray-100 hover:text-black"
-      >
-        <div class="w-6 h-6 rounded-full bg-gray-300"></div>
-        <span>Profile</span>
-      </div>
+      <button
+        class="w-10 h-10 rounded-full bg-gray-300"
+        @click="navigate('/talent/profile')"
+      ></button>
     </div>
   </nav>
 </template>
@@ -123,6 +127,9 @@ export default {
     },
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen
+    },
+    navigateProfile() {
+      this.$router.push('/talent/profile')
     }
   }
 }

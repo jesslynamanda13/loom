@@ -31,6 +31,7 @@
     <div class="mt-4 flex flex-col space-y-3">
       <div class="flex flex-row justify-between">
         <button
+          @click="navigateToJobDetails"
           class="border text-xs border-black bg-white text-black px-4 py-2 font-semibold rounded-md hover:bg-gray-100 flex items-center justify-between w-full mr-2"
         >
           See details
@@ -57,6 +58,7 @@
       </div>
 
       <button
+        @click="applyJob"
         class="text-xs bg-black text-white font-semibold px-4 py-2 rounded-md hover:bg-gray-800 flex justify-center items-center w-full"
       >
         <svg
@@ -93,6 +95,14 @@ export default {
     salary: String,
     skills: Array,
     jobDescription: String
+  },
+  methods: {
+    navigateToJobDetails() {
+      this.$router.push({ name: 'JobDetailsPage' })
+    },
+    applyJob() {
+      this.$emit('applyJob')
+    }
   }
 }
 </script>

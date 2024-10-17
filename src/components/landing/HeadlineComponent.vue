@@ -14,7 +14,10 @@
           </p>
         </div>
         <div class="button z-20">
-          <button class="bg-black text-white text-sm font-medium py-4 px-10 rounded-lg">
+          <button
+            @click="navigateSignUp"
+            class="bg-black text-white text-sm font-medium py-4 px-10 rounded-lg"
+          >
             Get Started
           </button>
         </div>
@@ -31,6 +34,11 @@
 
 <script>
 export default {
-  name: 'HeadlineComponent'
+  name: 'HeadlineComponent',
+  methods: {
+    navigateSignUp() {
+      this.$router.push('/sign-up')
+    }
+  }
 }
 </script>
