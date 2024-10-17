@@ -10,8 +10,8 @@
             <p class="text-sm">Full Name</p>
             <div class="relative">
               <input
-                type="string"
-                v-model="fullName"
+                type="text"
+                v-model="localFullName"
                 @input="checkChanges"
                 class="border border-gray-200 rounded-md px-4 py-2 w-full"
                 placeholder="Enter full name"
@@ -26,8 +26,8 @@
             <p class="text-sm">Email</p>
             <div class="relative">
               <input
-                type="string"
-                v-model="email"
+                type="text"
+                v-model="localEmail"
                 @input="checkChanges"
                 class="border border-gray-200 rounded-md px-4 py-2 w-full"
                 placeholder="Enter email"
@@ -45,8 +45,8 @@
                 >+62</span
               >
               <input
-                type="string"
-                v-model="phoneNumber"
+                type="text"
+                v-model="localPhoneNumber"
                 @input="checkChanges"
                 class="border border-gray-200 rounded-md px-8 py-2 w-full pl-16"
                 placeholder="Enter phone number"
@@ -78,43 +78,54 @@
 <script>
 export default {
   name: 'PersonalInformationComponent',
+  props: {
+    fullName: {
+      type: String,
+      required: true
+    },
+    email: {
+      type: String,
+      required: true
+    },
+    phoneNumber: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
-      fullName: 'Christopher Verrell',
-      email: 'christopher@gmail.com',
-      phoneNumber: '8123456789',
-      originalData: {
-        fullName: 'Christopher Verrell',
-        email: 'christopher@gmail.com',
-        phoneNumber: '8123456789'
-      },
+      localFullName: this.fullName, // Local copy for editing
+      localEmail: this.email, // Local copy for editing
+      localPhoneNumber: this.phoneNumber, // Local copy for editing
       hasChanges: false
+    }
+  },
+  watch: {
+    fullName(newVal) {
+      this.localFullName = newVal // Update local copy if prop changes
+    },
+    email(newVal) {
+      this.localEmail = newVal // Update local copy if prop changes
+    },
+    phoneNumber(newVal) {
+      this.localPhoneNumber = newVal // Update local copy if prop changes
     }
   },
   methods: {
     checkChanges() {
       this.hasChanges =
-        this.fullName !== this.originalData.fullName ||
-        this.email !== this.originalData.email ||
-        this.phoneNumber !== this.originalData.phoneNumber
+        this.localFullName !== this.fullName ||
+        this.localEmail !== this.email ||
+        this.localPhoneNumber !== this.phoneNumber
     },
     saveChanges() {
-      this.originalData = {
-        fullName: this.fullName,
-        email: this.email,
-        phoneNumber: this.phoneNumber
-      }
-      this.hasChanges = false
+      // Emit updated values to the parent
+      this.$emit('update:fullName', this.localFullName)
+      this.$emit('update:email', this.localEmail)
+      this.$emit('update:phoneNumber', this.localPhoneNumber)
+
       alert('Changes saved!') // For demonstration purposes
-    },
-    toggleEditingName() {
-      // Add functionality if needed for additional editing behavior
-    },
-    toggleEditingEmail() {
-      // Add functionality if needed for additional editing behavior
-    },
-    toggleEditingPhone() {
-      // Add functionality if needed for additional editing behavior
+      this.hasChanges = false // Reset changes flag
     }
   }
 }

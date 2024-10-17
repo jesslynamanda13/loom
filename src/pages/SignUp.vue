@@ -1,5 +1,53 @@
 <template>
   <div class="whole">
+    <div class="successmessage p-4 px-56">
+      <div
+        v-if="successMessage"
+        id="alert-1"
+        class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-50"
+        role="alert"
+      >
+        <svg
+          class="flex-shrink-0 w-4 h-4"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M16.707 5.293a1 1 0 0 0-1.414 0L9 11.586 5.707 8.293a1 1 0 0 0-1.414 1.414l4 4a1 1 0 0 0 1.414 0l7-7a1 1 0 0 0 0-1.414Z"
+          />
+        </svg>
+        <span class="sr-only">Success</span>
+        <div class="ms-3 text-sm font-medium">
+          {{ successMessage }}
+        </div>
+        <button
+          @click="dismissSuccessMessage"
+          type="button"
+          class="ms-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8"
+          data-dismiss-target="#alert-1"
+          aria-label="Close"
+        >
+          <span class="sr-only">Close</span>
+          <svg
+            class="w-3 h-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
     <div class="errormessage p-4 px-56">
       <div
         v-if="errorMessage"
@@ -252,6 +300,8 @@
 <script>
 import { RegisterSMEDTO } from '@/models/MsSMEOwner'
 import { RegisterTalentDTO } from '@/models/MsTalent'
+import SMEService from '@/services/SMEService'
+import TalentService from '@/services/TalentService'
 
 export default {
   name: 'SignUp',
@@ -262,7 +312,8 @@ export default {
       name: '',
       email: '',
       password: '',
-      errorMessage: ''
+      errorMessage: '',
+      successMessage: ''
     }
   },
   computed: {
@@ -287,6 +338,7 @@ export default {
     togglePasswordVisibility() {
       this.showPassword = !this.showPassword
     },
+
     validateForm() {
       console.log(this.name, this.email, this.password, this.selectedRole)
       if (!this.name || !this.email || !this.password) {
@@ -294,7 +346,8 @@ export default {
         return
       }
 
-      const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/
+      const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+]{6,}$/
+
       if (!passwordRegex.test(this.password)) {
         this.errorMessage =
           'Password must be at least 6 characters, include one capital letter, and one number.'
@@ -304,27 +357,56 @@ export default {
       if (this.selectedRole === 'talent') {
         this.registerTalentDTO = new RegisterTalentDTO(this.name, this.email, this.password)
         this.registerTalent(this.registerTalentDTO)
-      } else {
+      } else if (this.selectedRole === 'sme-owner') {
         this.registerSMEDTO = new RegisterSMEDTO(this.name, this.email, this.password)
         this.registerSmeOwner(this.registerSMEDTO)
       }
     },
-    registerTalent(registerTalentDTO) {
-      // simulate sending request
-      console.log('Sending request...')
-      console.log(registerTalentDTO)
-      alert('Form submitted successfully!')
+    async registerSmeOwner(registerSMEDTO) {
+      try {
+        const response = await SMEService.registerSME(registerSMEDTO)
+        if (response['data']['StatusCode'] == 200) {
+          this.successMessage = 'Sign-up successful! You will be redirected soon to login.'
+          setTimeout(() => {
+            this.$router.push('/login')
+          }, 3000)
+        } else {
+          this.errorMessage = response['data']['Message']
+        }
+      } catch (error) {
+        const errorReceived = error.response['data']['Message']
+        this.errorMessage = errorReceived
+      }
     },
-
-    registerSmeOwner(registerSMEDTO) {
-      console.log('Sending request...')
-      console.log(registerSMEDTO)
+    async registerTalent(registerTalentDTO) {
+      try {
+        const response = await TalentService.registerTalent(registerTalentDTO)
+        if (response['data']['StatusCode'] == 200) {
+          this.successMessage = 'Sign-up successful! You will be redirected soon to login.'
+          setTimeout(() => {
+            this.$router.push('/login')
+          }, 3000)
+        } else {
+          this.errorMessage = response['data']['Message']
+        }
+      } catch (error) {
+        const errorReceived = error.response['data']['Message']
+        this.errorMessage = errorReceived
+      }
     }
   }
 }
 </script>
 
 <style scoped>
+.successmessage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+
 .errormessage {
   position: fixed;
   top: 0;

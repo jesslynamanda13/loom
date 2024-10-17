@@ -6,9 +6,9 @@
           <p class="font-bold text-lg">Display Profile</p>
         </div>
         <div class="mt-6 flex flex-row space-x-4 items-start">
-          <img src="/assets/img/profile-pic-1.jpg" class="w-16 h-18" alt="" />
+          <img id="profile-picture" src="/assets/img/profile-pic-1.jpg" class="w-16 h-18" alt="" />
           <div class="information flex flex-col w-full">
-            <p class="font-bold text-lg" id="full-name">Christopher Verrell</p>
+            <p class="font-bold text-lg">{{ fullName }}</p>
             <div class="bio mt-2 flex flex-col space-y-2">
               <p class="text-sm">Bio</p>
               <div class="relative">
@@ -72,13 +72,27 @@
 <script>
 export default {
   name: 'TalentProfileComponent',
+  props: {
+    fullName: {
+      type: String,
+      required: true
+    },
+    initialBio: {
+      type: String,
+      required: true
+    },
+    initialLocation: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
-      bio: 'Hi, I’m a mobile developer and web designer 👋🏻 I develop with Flutter and React.',
-      location: 'Jakarta',
+      bio: this.initialBio,
+      location: this.initialLocation,
       originalData: {
-        bio: 'Hi, I’m a mobile developer and web designer 👋🏻 I develop with Flutter and React.',
-        location: 'Jakarta'
+        bio: this.initialBio,
+        location: this.initialLocation
       },
       hasChanges: false,
       editingBio: false
