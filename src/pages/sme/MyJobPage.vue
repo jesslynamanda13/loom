@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <section class="dashboard flex">
+    <section class="myjob flex">
       <div :class="sidebarWidthClass">
         <SideBarComponent @toggle="toggleSidebar" />
       </div>

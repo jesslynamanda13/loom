@@ -16,7 +16,7 @@
   
           <div>
             <h2 class="font-semibold">{{ message.name }}</h2>
-            <p class="text-sm text-gray-500 truncate w-48">{{ message.text }}</p>
+            <p class="text-sm text-gray-500 truncate w-64">{{ message.text }}</p>
           </div>
         </div>
   
