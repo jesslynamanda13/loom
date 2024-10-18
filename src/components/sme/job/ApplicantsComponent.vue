@@ -66,7 +66,7 @@
                 <select 
                     v-model="candidate.stage" 
                     @change="updateStage(candidate)" 
-                    class="px-2 py-1 text-sm rounded-md font-semibold" 
+                    class="cursor-pointer px-2 py-1 text-sm rounded-md font-semibold" 
                     :class="stageClass(candidate.stage)" 
                 >
                     <option value="Reviewed">Reviewed</option>

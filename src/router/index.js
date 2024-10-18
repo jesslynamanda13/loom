@@ -13,6 +13,7 @@ import JobDetailsPage from '@/pages/talent/JobDetailsPage.vue'
 import TalentProfilePage from '@/pages/talent/TalentProfilePage.vue'
 import MyJobPage from '@/pages/sme/MyJobPage.vue'
 import JobDetailComponent from '@/components/sme/job/JobDetailComponent.vue'
+import MessagePage from '@/pages/sme/MessagePage.vue'
 
 const routes = [
   {
@@ -110,6 +111,12 @@ const routes = [
     name: 'JobDetailPage',
     component: JobDetailComponent,
     meta: { title: 'Job Details' }
+  },
+  {
+    path: '/sme/message',
+    name: 'MessagePage',
+    component: MessagePage,
+    meta: { title: 'Messages' }
   }
 ]
 

@@ -1,12 +1,12 @@
 <template>
     <div id="app">
-      <section class="profile flex">
+      <section class="message flex">
         <div :class="sidebarWidthClass">
           <SideBarComponent @toggle="toggleSidebar" />
         </div>
   
         <div :class="[mainContentWidthClass, 'p-4']">
-            <SMEProfileDetailComponent />
+            <MessageComponent />
         </div>
       </section>
     </div>  
@@ -14,13 +14,13 @@
 
 <script>
     import SideBarComponent from '@/components/sme/navigation/SideBarComponent.vue';
-    import SMEProfileDetailComponent from '@/components/sme/profile/SMEProfileDetailComponent.vue';
+    import MessageComponent from '@/components/sme/message/MessageComponent.vue';
 
     export default{
-        name: 'ProfilePage',
+        name: 'MessagePage',
         components: {
             SideBarComponent,
-            SMEProfileDetailComponent,
+            MessageComponent
         },
         data() {
             return {
@@ -41,5 +41,4 @@
             },
         },
     }
-
 </script>

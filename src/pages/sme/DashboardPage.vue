@@ -35,7 +35,7 @@
   import VacanciesList from '@/components/sme/dashboard/CurrentVacancyComponent.vue'; 
   import RecentApplicants from '@/components/sme/dashboard/RecentApplicants.vue';
   import NotificationComponent from '@/components/sme/dashboard/NotificationComponent.vue';
-  import MessageComponent from '@/components/sme/dashboard/MessageComponent.vue';
+  import MessageComponent from '@/components/sme/dashboard/QuickMessageComponent.vue';
 
   export default {
     name: 'DashboardPage',
