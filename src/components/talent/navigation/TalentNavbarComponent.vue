@@ -31,19 +31,9 @@
         <span class="text-sm">Messages</span>
       </button>
 
-      <button
-        class="notif-btn flex items-center space-x-2 border border-black px-6 py-2 rounded-full hover:bg-black hover:text-white"
-      >
-        <div class="notif-icon">
-          <img src="/assets/img/notif-icon.png" class="w-3" />
-        </div>
-        <span class="text-sm">Notifications</span>
-      </button>
-
-      <button class="w-10 h-10 rounded-full bg-gray-300" @click="navigateProfile"></button>
+      <img src="/assets/img/template-profile-pic.png" @click="navigateProfile" class="w-10 h-10" />
     </div>
 
-    <!-- Hamburger Menu Button (Small Screen) -->
     <div class="lg:hidden">
       <button @click="toggleMenu" class="focus:outline-none">
         <svg
