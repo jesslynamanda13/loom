@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-      <section class="search flex">
+      <section class="postjob flex">
         <div :class="sidebarWidthClass">
           <SideBarComponent @toggle="toggleSidebar" />
         </div>
@@ -24,20 +24,20 @@
         },
         data() {
             return {
-            isSidebarCollapsed: false,
+                isSidebarCollapsed: false,
             };
         },
         computed: {
             sidebarWidthClass() {
-            return this.isSidebarCollapsed ? 'w-16' : 'w-64';
+                return this.isSidebarCollapsed ? 'w-16' : 'w-64';
             },
             mainContentWidthClass() {
-            return this.isSidebarCollapsed ? 'w-full' : 'flex-grow';
+                return this.isSidebarCollapsed ? 'w-full' : 'flex-grow';
             },
         },
         methods: {
             toggleSidebar() {
-            this.isSidebarCollapsed = !this.isSidebarCollapsed;
+                this.isSidebarCollapsed = !this.isSidebarCollapsed;
             },
         },
     };

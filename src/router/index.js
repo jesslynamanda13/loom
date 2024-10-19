@@ -12,6 +12,7 @@ import TalentProfilePage from '@/pages/talent/TalentProfilePage.vue'
 import checkUserRole from '@/middleware/RoleGuard'
 import TalentDetailComponent from '@/components/sme/search/TalentDetailComponent.vue'
 import JobDetailsPage from '@/pages/talent/JobDetailsPage.vue'
+import MyJobPage from '@/pages/sme/MyJobPage.vue'
 
 const routes = [
   {
@@ -80,6 +81,12 @@ const routes = [
     name: 'PostJobPage',
     component: PostJobPage,
     meta: { title: 'Post a Job', requiresAuth: true, role: 'SME' }
+  },
+  {
+    path: '/sme/myjob',
+    name: 'MyJobPage',
+    component: MyJobPage,
+    meta: { title: 'Job Openings' }
   },
   {
     path: '/sme/profile',
