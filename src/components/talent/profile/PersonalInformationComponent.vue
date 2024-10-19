@@ -76,6 +76,9 @@
 </template>
 
 <script>
+import { EditPersonalInformationTalentDTO } from '@/models/MsTalent'
+import TalentService from '@/services/TalentService'
+
 export default {
   name: 'PersonalInformationComponent',
   props: {
@@ -94,21 +97,21 @@ export default {
   },
   data() {
     return {
-      localFullName: this.fullName, // Local copy for editing
-      localEmail: this.email, // Local copy for editing
-      localPhoneNumber: this.phoneNumber, // Local copy for editing
+      localFullName: this.fullName,
+      localEmail: this.email,
+      localPhoneNumber: this.phoneNumber,
       hasChanges: false
     }
   },
   watch: {
     fullName(newVal) {
-      this.localFullName = newVal // Update local copy if prop changes
+      this.localFullName = newVal
     },
     email(newVal) {
-      this.localEmail = newVal // Update local copy if prop changes
+      this.localEmail = newVal
     },
     phoneNumber(newVal) {
-      this.localPhoneNumber = newVal // Update local copy if prop changes
+      this.localPhoneNumber = newVal
     }
   },
   methods: {
@@ -118,14 +121,24 @@ export default {
         this.localEmail !== this.email ||
         this.localPhoneNumber !== this.phoneNumber
     },
-    saveChanges() {
-      // Emit updated values to the parent
+    async saveChanges() {
       this.$emit('update:fullName', this.localFullName)
       this.$emit('update:email', this.localEmail)
       this.$emit('update:phoneNumber', this.localPhoneNumber)
 
-      alert('Changes saved!') // For demonstration purposes
-      this.hasChanges = false // Reset changes flag
+      const request = new EditPersonalInformationTalentDTO(
+        this.localFullName,
+        this.localEmail,
+        this.localPhoneNumber
+      )
+
+      const response = await TalentService.editProfile(request)
+      if (response.status === 200) {
+        this.hasChanges = false
+        this.$emit('changes-saved')
+      } else {
+        this.$emit('show-warning', 'Failed to save changes')
+      }
     }
   }
 }

@@ -44,3 +44,19 @@ export class RegisterTalentDTO {
     this.password = password
   }
 }
+
+export class EditDisplayProfileTalentDTO {
+  constructor(fullName, bio, location) {
+    this.fullName = fullName
+    this.bio = bio
+    this.location = location
+  }
+}
+
+export class EditPersonalInformationTalentDTO {
+  constructor(fullName, email, phoneNumber) {
+    this.fullName = fullName
+    this.email = email
+    this.phoneNumber = phoneNumber
+  }
+}
