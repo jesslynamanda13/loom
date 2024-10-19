@@ -24,13 +24,13 @@ const routes = [
     path: '/login',
     name: 'LoginPage',
     component: LoginPage,
-    meta: { title: 'Log in to Loom', requiresAuth: false }
+    meta: { title: 'Log in to Loom', requiresAuth: false, role: 'unauthenticated' }
   },
   {
     path: '/sign-up',
     name: 'SignUpPage',
     component: SignUp,
-    meta: { title: 'Sign up to Loom', requiresAuth: false }
+    meta: { title: 'Sign up to Loom', requiresAuth: false, role: 'unauthenticated' }
   },
   {
     path: '/talent/explore-jobs',
@@ -101,7 +101,6 @@ const router = createRouter({
 })
 router.beforeEach(async (to, from, next) => {
   const role = await checkUserRole()
-  console.log('role', role)
   if (role === 'unauthenticated') {
     if (to.meta.requiresAuth) {
       next('/login')
@@ -109,7 +108,7 @@ router.beforeEach(async (to, from, next) => {
       next()
     }
   } else if (role === 'Talent') {
-    if (to.meta.role === 'SME') {
+    if (to.meta.role === 'SME' || !to.meta.requiresAuth) {
       next('/talent/explore-jobs')
     } else {
       next()

@@ -3,7 +3,7 @@
     <TalentNavbarComponent :currentPage="'my-jobs'" />
     <div class="content px-24">
       <div class="title">
-        <p class="font-bold text-2xl">Job Applications</p>
+        <p class="mt-12 font-bold text-2xl">Job Applications</p>
       </div>
       <div class="options">
         <div class="flex space-x-4 mt-6">

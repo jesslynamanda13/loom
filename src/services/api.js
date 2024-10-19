@@ -1,7 +1,7 @@
 // src/api.js
 import axios from 'axios'
 
-const apiKey = 'http://localhost:8080/api/public'
+const apiKey = 'http://localhost:8080/api'
 
 const api = axios.create({
   baseURL: apiKey,

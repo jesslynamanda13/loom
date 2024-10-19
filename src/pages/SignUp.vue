@@ -340,7 +340,6 @@ export default {
     },
 
     validateForm() {
-      console.log(this.name, this.email, this.password, this.selectedRole)
       if (!this.name || !this.email || !this.password) {
         this.errorMessage = 'Please fill in all fields before submitting.'
         return

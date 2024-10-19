@@ -3,7 +3,7 @@ import api from './api'
 const SMEService = {
   async loginSME(LoginSMEDTO) {
     try {
-      const response = await api.post('/sme-login', LoginSMEDTO)
+      const response = await api.post('/public/sme-login', LoginSMEDTO)
       return response
     } catch (error) {
       console.error('Error logging in sme:', error)
@@ -13,7 +13,7 @@ const SMEService = {
 
   async registerSME(RegisterSMEDTO) {
     try {
-      const response = await api.post('/sme-register', RegisterSMEDTO)
+      const response = await api.post('/public/sme-register', RegisterSMEDTO)
       return response
     } catch (error) {
       console.error('Error registering sme:', error)

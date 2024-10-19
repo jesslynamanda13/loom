@@ -50,7 +50,11 @@
     </div>
     <div class="flex flex-row gap-2 items-center">
       <div class="image w-1/2">
-        <img src="/assets/img/login-asset.png" alt="login-asset" />
+        <img
+          src="/assets/img/login-asset.png"
+          alt="login-asset"
+          class="h-screen object-cover w-full"
+        />
       </div>
       <div class="login-components px-12">
         <div class="text-title font-bold text-3xl">

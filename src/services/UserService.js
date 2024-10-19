@@ -3,7 +3,7 @@ import api from './api'
 const UserService = {
   async getUserRole(email) {
     try {
-      const response = await api.post('/check-user-role', { email })
+      const response = await api.post('/public/check-user-role', { email })
       return response
     } catch (error) {
       console.error('Error fetching user role:', error)
