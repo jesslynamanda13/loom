@@ -1,40 +1,81 @@
 <template>
   <div class="flex flex-col">
-    <TalentNavbarComponent />
-    <div class="flex flex-row mt-12 px-20 space-x-12">
-      <div
-        class="side-bar bg-white border border-gray-300 rounded-lg flex flex-col py-8 px-12 h-fit space-y-12"
-      >
-        <div class="nav-links flex flex-col gap-2">
-          <p class="font-bold text-black text-lg">Profile</p>
-          <p class="font-bold text-gray-400 text-lg">CV & Portfolio</p>
-          <p class="font-bold text-gray-400 text-lg">Past applications</p>
-        </div>
-        <div class="logout-button">
-          <button class="bg-red-500 text-white rounded-md px-4 py-2 text-sm font-bold">
-            Logout
-          </button>
-        </div>
+    <div class="flex flex-row mt-12 space-x-4">
+      <div :class="sidebarWidthClass">
+        <TalentSideBarComponent @toggle="toggleSidebar" />
       </div>
-      <div class="flex flex-col space-y-4 mb-12 flex-grow">
+
+      <!-- Main content -->
+      <div :class="[mainContentWidthClass, 'flex flex-col space-y-4 mb-12 px-12']">
         <p class="text-2xl font-bold">Profile</p>
-        <TalentProfileComponent />
-        <PersonalInformationComponent />
+        <TalentProfileComponent
+          :full-name="talentProfile.FullName"
+          :initial-bio="bio"
+          :initial-location="location"
+        />
+        <PersonalInformationComponent
+          :full-name="talentProfile.FullName"
+          :email="talentProfile.Email"
+          :phone-number="talentProfile.PhoneNumber"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import TalentNavbarComponent from '@/components/talent/navigation/TalentNavbarComponent.vue'
 import TalentProfileComponent from '@/components/talent/profile/TalentProfileComponent.vue'
 import PersonalInformationComponent from '@/components/talent/profile/PersonalInformationComponent.vue'
+import TalentService from '@/services/TalentService'
+import TalentSideBarComponent from '@/components/talent/profile/TalentSideBarComponent.vue'
 export default {
   name: 'TalentProfilePage',
   components: {
-    TalentNavbarComponent,
+    TalentSideBarComponent,
     TalentProfileComponent,
     PersonalInformationComponent
+  },
+  data() {
+    return {
+      talentProfile: {},
+      bio: '',
+      location: '',
+      isSidebarCollapsed: false
+    }
+  },
+  computed: {
+    sidebarWidthClass() {
+      return this.isSidebarCollapsed ? 'w-16' : 'w-64'
+    },
+    mainContentWidthClass() {
+      return this.isSidebarCollapsed ? 'w-full' : 'flex-grow'
+    }
+  },
+  methods: {
+    toggleSidebar() {
+      this.isSidebarCollapsed = !this.isSidebarCollapsed
+    },
+    async fetchTalentProfile() {
+      try {
+        const response = await TalentService.getTalentProfile()
+        this.talentProfile = response
+        this.bio = response.Bio || 'Default bio'
+        this.location = response.Location || 'Default location'
+      } catch (error) {
+        console.error('Error fetching talent profile:', error)
+      }
+    },
+    logout() {
+      localStorage.removeItem('authToken')
+      this.$router.push('/login')
+    }
+  },
+  async mounted() {
+    await this.fetchTalentProfile()
   }
 }
 </script>
+
+<style scoped>
+/* Add styles for sidebar and layout if needed */
+</style>

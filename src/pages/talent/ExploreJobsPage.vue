@@ -354,7 +354,7 @@
 import TalentNavbarComponent from '@/components/talent/navigation/TalentNavbarComponent.vue'
 import JobCardComponent from '@/components/talent/JobCardComponent.vue'
 import FooterComponent from '@/components/FooterComponent.vue'
-import JobApplicationModalComponent from '@/components/talent/JobApplicationModalComponent.vue'
+import JobApplicationModalComponent from '@/components/talent/application/JobApplicationModalComponent.vue'
 
 export default {
   name: 'ExploreJobsPage',

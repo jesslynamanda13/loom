@@ -91,7 +91,7 @@ import FooterComponent from '@/components/FooterComponent.vue'
 import JobDetailsCardComponent from '@/components/talent/JobDetailsCardComponent.vue'
 import SMEInformation from '@/components/talent/SMEInformationComponent.vue'
 import OtherJobsComponent from '@/components/talent/OtherJobsComponent.vue'
-import JobApplicationModalComponent from '@/components/talent/JobApplicationModalComponent.vue'
+import JobApplicationModalComponent from '@/components/talent/application/JobApplicationModalComponent.vue'
 export default {
   name: 'JobDetailsPage',
   components: {

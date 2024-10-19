@@ -50,7 +50,11 @@
     </div>
     <div class="flex flex-row gap-2 items-center">
       <div class="image w-1/2">
-        <img src="/assets/img/login-asset.png" alt="login-asset" />
+        <img
+          src="/assets/img/login-asset.png"
+          alt="login-asset"
+          class="h-screen object-cover w-full"
+        />
       </div>
       <div class="login-components px-12">
         <div class="text-title font-bold text-3xl">
@@ -184,6 +188,9 @@
 </template>
 
 <script>
+import SMEService from '@/services/SMEService'
+import TalentService from '@/services/TalentService'
+import UserService from '@/services/UserService'
 export default {
   name: 'LoginPage',
   data() {
@@ -194,6 +201,7 @@ export default {
       errorMessage: ''
     }
   },
+
   methods: {
     togglePasswordVisibility() {
       this.showPassword = !this.showPassword
@@ -204,7 +212,7 @@ export default {
     clearErrorMessage() {
       this.errorMessage = ''
     },
-    validateForm() {
+    async validateForm() {
       console.log('clicked')
       console.log(this.email, this.password)
       if (!this.email || !this.password) {
@@ -212,7 +220,54 @@ export default {
         return
       }
 
-      alert('Form submitted successfully!')
+      const LoginTalentDTO = {
+        email: this.email,
+        password: this.password
+      }
+
+      var role = ''
+      try {
+        const response = await UserService.getUserRole(this.email)
+        role = response['data']['role']
+      } catch (error) {
+        this.errorMessage = "Account doesn't exist! Please sign up before logging in."
+      }
+      console.log(role)
+      if (role == 'Talent') {
+        this.loginTalent(LoginTalentDTO)
+      } else if (role == 'SME') {
+        this.loginSME(LoginTalentDTO)
+      }
+    },
+    async loginSME(LoginSMEDTO) {
+      try {
+        const response = await SMEService.loginSME(LoginSMEDTO)
+        if (response['data']['StatusCode'] == 200) {
+          var token = response['data']['Token']
+          localStorage.setItem('authToken', token)
+          this.$router.push('/sme/dashboard')
+        } else {
+          this.errorMessage = 'Login failed. Please check your credentials.'
+        }
+      } catch (error) {
+        console.error('Login failed:', error)
+        this.errorMessage = 'Login failed. Please check your credentials.'
+      }
+    },
+    async loginTalent(LoginTalentDTO) {
+      try {
+        const response = await TalentService.loginTalent(LoginTalentDTO)
+        if (response['data']['StatusCode'] == 200) {
+          var token = response['data']['Token']
+          localStorage.setItem('authToken', token)
+          this.$router.push('/talent/explore-jobs')
+        } else {
+          this.errorMessage = 'Login failed. Please check your credentials.'
+        }
+      } catch (error) {
+        console.error('Login failed:', error)
+        this.errorMessage = 'Login failed. Please check your credentials.'
+      }
     }
   }
 }
