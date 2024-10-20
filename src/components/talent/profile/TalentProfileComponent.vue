@@ -4,10 +4,6 @@
       <div class="profile-information">
         <div class="title">
           <p class="font-bold text-lg">Display Profile</p>
-          <p class="mt-2 text-sm text-gray-600">
-            Here is what your profile looks like to employers. Make sure to keep your profile
-            complete and accurate.
-          </p>
         </div>
         <div class="mt-6 flex flex-row space-x-4 items-start">
           <img
@@ -37,32 +33,6 @@
                 <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500">
                   <img src="/assets/img/edit-icon.png" class="w-4 h-4" alt="" />
                 </span>
-              </div>
-            </div>
-
-            <div class="skills mt-4">
-              <div class="flex flex-wrap items-center gap-2">
-                <span
-                  v-for="(tag, index) in skills"
-                  :key="index"
-                  class="bg-orange-100 text-red-700 px-3 py-1 rounded-lg mr-2 flex items-center justify-start"
-                >
-                  {{ tag.SkillName }}
-                  <button @click="removeTag(index)" class="ml-2 text-gray-400 focus:outline-none">
-                    x
-                  </button>
-                </span>
-
-                <select
-                  v-model="selectedSkill"
-                  @change="addTag"
-                  class="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-300"
-                >
-                  <option disabled value="">Select a Skill</option>
-                  <option v-for="skill in skills" :key="skill.SkillID" :value="skill">
-                    {{ skill.SkillName }}
-                  </option>
-                </select>
               </div>
             </div>
 
@@ -141,7 +111,6 @@
 
 <script>
 import { EditDisplayProfileTalentDTO } from '@/models/MsTalent'
-import SkillsService from '@/services/SkillsService'
 import TalentService from '@/services/TalentService'
 
 export default {
@@ -169,14 +138,15 @@ export default {
       newTag: '',
       bio: this.initialBio,
       location: this.initialLocation,
-      skills: [...this.initialSkills],
       originalData: {
         bio: this.initialBio,
         location: this.initialLocation
       },
+      selectedSkill: '',
       hasChanges: false,
       editingBio: false,
-      selectedSkill: []
+      skills: this.initialSkills,
+      availableSkills: []
     }
   },
   computed: {
@@ -192,7 +162,7 @@ export default {
     }
   },
   async mounted() {
-    await this.fetchAllSkills()
+    await this.getAllSkills()
   },
   methods: {
     checkChanges() {
@@ -216,23 +186,24 @@ export default {
         console.error('Error saving changes:', error)
       }
     },
-    async fetchAllSkills() {
-      try {
-        const response = await SkillsService.getAllSkills()
-        this.skills = response['data'].skills
-      } catch (error) {
-        console.log(error)
-      }
+    async getAllSkills() {
+      const response = await TalentService.getAllSkills()
+      console.log('Skills: ', response['data'])
+      this.availableSkills = response['data']
     },
 
-    addTag() {
-      if (this.selectedSkill) {
-        this.form.skills.push(this.selectedSkill)
-        this.selectedSkill = null
+    addSkill() {
+      if (this.selectedSkill && !this.skills.includes(this.selectedSkill)) {
+        this.skills.push(this.selectedSkill)
+        this.$emit('update:skills', this.skills)
       }
+      this.selectedSkill = ''
     },
-    removeTag(index) {
-      this.form.skills.splice(index, 1)
+
+    removeTag(skill) {
+      this.selectedSkills = this.selectedSkills.filter(
+        (selectedSkill) => selectedSkill.SkillID !== skill.SkillID
+      )
     }
   }
 }

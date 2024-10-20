@@ -36,6 +36,37 @@ const JobService = {
       console.error(`Error getting skills for job ID ${jobId}:`, error)
       return []
     }
+  },
+  async getJobById(jobId) {
+    try {
+      const response = await api.get(`/private/jobs/${jobId}`)
+      if (response) {
+        const job = response.data['Data']
+        const skills = await this.getSkillsByJobId(job.JobID)
+        const jobWithSkills = {
+          ...job,
+          Skills: skills
+        }
+        return jobWithSkills
+      }
+    } catch (error) {
+      console.error(`Error getting job by ID ${jobId}:`, error)
+      return null
+    }
+  },
+  async getSMEId(smeId) {
+    try {
+      const response = await api.get(`/private/get-sme-detail`, {
+        params: {
+          sme_id: smeId
+        }
+      })
+      console.log('SME ID:', response)
+      return response.data['Data']
+    } catch (error) {
+      console.error('Error fetching SME profile:', error)
+      throw error
+    }
   }
 }
 

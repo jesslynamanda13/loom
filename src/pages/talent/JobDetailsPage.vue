@@ -4,71 +4,28 @@
     <div class="components mt-12 px-12">
       <div class="flex flex-row gap-4">
         <JobDetailsCardComponent
-          postedTime="2 weeks ago"
-          jobTitle="Mobile Developer"
-          jobLocation="Remote | Based in Jakarta"
-          workType="Part-Time"
-          hoursPerWeek="20 hours / week"
-          salary="Rp. 600.000 (Weekly)"
-          :skills="['Mobile Development', 'UI/UX Design']"
-          jobDescription="As a Mobile Developer at Tenue d'Attire, you will play a key role in designing, developing, and maintaining mobile applications that align with the company’s fashion-forward vision."
-          :jobResponsibilities="[
-            'Translating UI/UX designs into fully functional mobile applications.',
-            'Writing clean, maintainable code for Android/iOS platforms.',
-            'Integrating APIs and third-party libraries as needed.',
-            'Troubleshooting, debugging, and optimizing app performance.',
-            'Ensuring app stability and maintaining app versioning.',
-            'Staying up-to-date with mobile development trends, tools, and technologies.'
-          ]"
-          :qualifications="[
-            'Proven experience in mobile app development (Android/iOS).',
-            'Proficiency in Java/Kotlin (for Android) or Swift (for iOS).',
-            'Strong understanding of mobile UI/UX principles.',
-            'Experience with RESTful APIs, databases, and backend integration.',
-            'Familiarity with Git and version control systems.',
-            'Strong problem-solving and analytical skills.',
-            'Ability to work in a collaborative team environment.'
-          ]"
+          :postedTime="postedTime"
+          :jobTitle="jobTitle"
+          :jobLocation="jobLocation"
+          :workType="jobType"
+          :salary="wage"
+          :skills="skills"
+          :jobDescription="jobDescription"
+          :jobResponsibilities="jobResponsibilities"
+          :qualifications="jobQualifications"
           @apply-now-clicked="showModal = true"
         />
         <div class="right">
           <p class="text-lg font-semibold mb-4">Posted by</p>
           <SMEInformation
-            companyLogo="/assets/img/company-logo.png"
+            companyLogo="/assets/img/default-photo.jpg"
             status="Active"
-            companyName="Tenue d'Attire"
+            :companyName="companyName"
             companyTagline="Clothing store in Jakarta"
-            companyDescription="At TdA, we're not just creating cool clothes, it's about redefining how people connect with and enjoy city living."
-            email="info@tenuedeattire.com"
-            website="https://tenuedeattire.com"
+            :companyDescription="companyDescription"
+            :website="website"
+            :email="email"
           />
-          <!-- Company Other Jobs -->
-          <div class="mt-8">
-            <h3 class="text-lg font-semibold mb-4">More Openings at Tenue d'Attire</h3>
-            <div class="grid grid-cols-1 gap-4">
-              <OtherJobsComponent
-                companyLogo="/assets/img/company-logo.png"
-                jobTitle="Mobile Developer (iOS)"
-                location="Jakarta"
-                workType="Freelance"
-                workArrangement="On-site"
-              />
-            </div>
-          </div>
-
-          <!-- Similar Jobs -->
-          <div class="mt-8">
-            <h3 class="text-lg font-semibold mb-4">Similar jobs to "Mobile Developer"</h3>
-            <div class="grid grid-cols-1 gap-4">
-              <OtherJobsComponent
-                companyLogo="/assets/img/company-logo.png"
-                jobTitle="Mobile Developer (iOS)"
-                location="Jakarta"
-                workType="Freelance"
-                workArrangement="On-site"
-              />
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -90,8 +47,8 @@ import TalentNavbarComponent from '@/components/talent/navigation/TalentNavbarCo
 import FooterComponent from '@/components/FooterComponent.vue'
 import JobDetailsCardComponent from '@/components/talent/JobDetailsCardComponent.vue'
 import SMEInformation from '@/components/talent/SMEInformationComponent.vue'
-import OtherJobsComponent from '@/components/talent/OtherJobsComponent.vue'
 import JobApplicationModalComponent from '@/components/talent/application/JobApplicationModalComponent.vue'
+import JobService from '@/services/JobService'
 export default {
   name: 'JobDetailsPage',
   components: {
@@ -99,13 +56,79 @@ export default {
     FooterComponent,
     JobDetailsCardComponent,
     SMEInformation,
-    OtherJobsComponent,
     JobApplicationModalComponent
   },
+
   data() {
     return {
-      showModal: false // Control the modal visibility
+      showModal: false,
+      postedTime: '',
+      jobTitle: '',
+      jobLocation: '',
+      jobType: '',
+      wage: '',
+      skills: [],
+      jobDescription: '',
+      jobResponsibilities: [],
+      jobQualifications: [],
+      smeId: '',
+      companyName: '',
+      companyTagline: '',
+      companyDescription: '',
+      email: '',
+      website: ''
     }
+  },
+  methods: {
+    async getJobDetails() {
+      try {
+        const response = await JobService.getJobById(this.$route.params.jobId)
+        console.log(response)
+        if (response !== '') {
+          this.postedTime = this.getWeeksSinceCreated(response.CreatedAt)
+          this.jobTitle = response.JobTitle
+          this.jobLocation = response.Location
+          this.jobType = response.JobType
+          this.wage = response.Wage
+          this.skills = response.Skills
+          this.jobDescription = response.JobDescription
+          this.jobQualifications = response.Qualification
+          this.smeId = response.SMEID
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async getSMEDetails() {
+      try {
+        const response = await JobService.getSMEId(this.smeId)
+        console.log('Company', response)
+        this.companyName = response.CompanyName
+        this.companyDescription = response.CompanyDescription
+        this.email = response.Email
+        this.website = response.Social
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    getWeeksSinceCreated(createdAt) {
+      const createdDate = new Date(createdAt)
+      const currentDate = new Date()
+
+      const differenceInMillis = currentDate - createdDate
+
+      const differenceInWeeks = Math.floor(differenceInMillis / (1000 * 60 * 60 * 24 * 7))
+
+      if (differenceInWeeks <= 1) {
+        return '1 week ago'
+      } else {
+        return `${differenceInWeeks} weeks ago`
+      }
+    }
+  },
+  async mounted() {
+    await this.getJobDetails()
+    await this.getSMEDetails()
   }
 }
 </script>

@@ -3,8 +3,8 @@
     <div class="content">
       <div class="title flex flex-row justify-between align-top items-start">
         <div class="text-content">
-          <p class="text-xl font-bold">Apply to "Mobile Developer"</p>
-          <p class="mt-2 text-gray-400">Posted by Tenue d'Attire</p>
+          <p class="text-xl font-bold">Apply to "Graphic Designer"</p>
+          <p class="mt-2 text-gray-400">Posted by Brodo</p>
         </div>
         <button @click="closeModal" class="mr-4">
           <img src="/assets/img/exit-icon.png" class="w-3 h-3" alt="Exit" />
@@ -32,7 +32,7 @@
               class="mt-6 profile-card flex flex-row justify-between align-top border border-gray-200 rounded-md px-6 py-4"
             >
               <div class="flex flex-row space-x-4 align-middle items-center">
-                <img src="/assets/img/profile-pic-1.jpg" class="w-16 h-16" alt="" />
+                <img src="/assets/img/template-profile-pic.png" class="w-16 h-16" alt="" />
                 <div class="information flex flex-col space-y-1">
                   <p class="font-bold text-lg">Christopher Verrell</p>
                   <p class="text-md">
@@ -43,9 +43,6 @@
                     <p class="text-sm">Based in Jakarta</p>
                   </div>
                 </div>
-              </div>
-              <div class="edit-icon">
-                <img src="/assets/img/edit-icon.png" class="w-6 h-6" alt="" />
               </div>
             </div>
           </div>
@@ -58,9 +55,6 @@
                 value="christopher@gmail.com"
                 class="border border-gray-200 rounded-md px-6 py-4 w-full"
               />
-              <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500">
-                <img src="/assets/img/edit-icon.png" class="w-6 h-6" alt="" />
-              </span>
             </div>
           </div>
 
@@ -76,9 +70,6 @@
                 class="border border-gray-200 rounded-md px-12 py-4 w-full pl-16"
                 placeholder="Enter phone number"
               />
-              <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500">
-                <img src="/assets/img/edit-icon.png" class="w-6 h-6" alt="" />
-              </span>
             </div>
           </div>
 
@@ -108,9 +99,6 @@
                   value="https://drive.google.com/123"
                   class="border border-gray-200 rounded-md px-6 py-4 w-full"
                 />
-                <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500">
-                  <img src="/assets/img/edit-icon.png" class="w-6 h-6" alt="" />
-                </span>
               </div>
             </div>
             <div class="mt-6 flex flex-col space-y-4">
