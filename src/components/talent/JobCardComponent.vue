@@ -3,21 +3,21 @@
     class="job-card max-w-sm md:max-w-xs px-6 py-6 lg:w-80 border border-gray-200 rounded-lg shadow-lg"
   >
     <div class="flex items-center space-x-2 mb-3">
-      <img :src="companyLogo" alt="Company Logo" class="w-6 h-6 rounded-full" />
+      <img src="/assets/img/default-photo.jpg" class="w-12 h-12 rounded-full" />
       <span class="text-xs text-black font-semibold">{{ companyName }}</span>
     </div>
     <p class="text-sm">Looking for</p>
     <h2 class="text-xl font-bold text-gray-800">{{ jobTitle }}</h2>
 
     <p class="mt-2 text-xs text-gray-600">
-      {{ location }} | {{ workType }} ({{ hoursPerWeek }}) | {{ workArrangement }}
+      {{ location }} | {{ workType }} | {{ workArrangement }}
     </p>
 
     <p class="text-xs font-semibold text-gray-800 mt-2">Salary: {{ salary }}</p>
     <p class="mt-4 text-sm font-semibold text-black">Skills:</p>
     <div class="flex space-x-1 mt-2">
       <span
-        v-for="skill in skills"
+        v-for="(skill, index) in skills.slice(0, 2)"
         :key="skill"
         class="px-2 py-1 text-xs bg-orange-200 text-orange-600 rounded-md"
       >
@@ -26,8 +26,6 @@
     </div>
     <p class="mt-4 text-sm font-semibold text-black">Job Description:</p>
     <p class="mt-2 text-xs text-gray-600">{{ jobDescription }}</p>
-
-    <!-- Buttons -->
     <div class="mt-4 flex flex-col space-y-3">
       <div class="flex flex-row justify-between">
         <button
@@ -86,15 +84,17 @@ export default {
   name: 'JobCardComponent',
   props: {
     companyName: String,
-    companyLogo: String,
     jobTitle: String,
     location: String,
     workType: String,
-    hoursPerWeek: String,
     workArrangement: String,
     salary: String,
     skills: Array,
-    jobDescription: String
+    jobDescription: String,
+    index: {
+      type: Number,
+      required: true
+    }
   },
   methods: {
     navigateToJobDetails() {
