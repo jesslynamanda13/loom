@@ -22,6 +22,19 @@ const SMEService = {
     }
   },
 
+  async getSMEID() {
+    const token = localStorage.getItem('authToken')
+
+    if (!token) {
+      throw new Error('Token not found')
+    }
+
+    const decodedToken = jwtDecode(token)
+
+    const SMEId = decodedToken['user_id']
+    return SMEId
+  },
+
   async getSMEProfile() {
     try {
       const token = localStorage.getItem('authToken')
@@ -30,9 +43,8 @@ const SMEService = {
         throw new Error('Token not found')
       }
 
-      const decodedToken = jwtDecode(token)
-
-      const SMEId = decodedToken['user_id']
+      const SMEId = await this.getSMEID()
+      console.log('SMEId:', SMEId);
 
       if (!SMEId) {
         throw new Error('SMEID not found in token')
@@ -50,30 +62,64 @@ const SMEService = {
     }
   },
 
-  async getAllSkills() {
+  async postJob(jobDTO) {
     try {
       const token = localStorage.getItem('authToken');
+
       if (!token) {
         throw new Error('Token not found');
       }
 
-      const response = await api.get('/private/get-all-skills', {
+      const response = await api.post('/private/post-a-job', jobDTO, {
         headers: {
-          Authorization: `Bearer ${token}`,
-        },
+          Authorization: `Bearer ${token}`
+        }
       });
 
-      if (!response.data || !response.data.Skills) {
-        throw new Error('No skills found');
-      }
-
-      console.log('Fetched Skills:', response.data.Skills);
-      return response.data.Skills;
+      return response.data;
     } catch (error) {
-      console.error('Error fetching skills:', error);
+      console.error('Error posting job:', error);
       throw error;
     }
-  }, 
+  },
+
+  async getAllJobs() {
+    try {
+      const token = localStorage.getItem('authToken');
+      console.log(token)
+  
+      if (!token) {
+        throw new Error('Token not found');
+      }
+  
+      const SMEId = await this.getSMEID();
+      console.log('SMEId:', SMEId);
+      if (!SMEId) {
+        throw new Error('SMEID not found in token');
+      }
+  
+      const response = await api.post(
+        `/private/get-job-posted?sme_id=${SMEId}`,
+        {}, 
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        }
+      );
+  
+      console.log('Response data:', response.data['Jobs']);
+  
+      if (!response.data || !response.data.Jobs) {
+        throw new Error('Invalid response structure or no jobs found');
+      }
+  
+      return response.data['Jobs'];
+    } catch (error) {
+      console.error('Error fetching all jobs:', error);
+      throw error;
+    }
+  }
 }
 
 export default SMEService

@@ -50,7 +50,7 @@
         >
           <div class="flex items-center space-x-3">
             <img
-              src="/public/assets/img/store-logo.png"
+              src="/public/assets/img/default-photo.jpg"
               alt="AngelStore"
               class="h-10 w-10 rounded-full"
             />

@@ -88,52 +88,33 @@
     </div>
 
     <h3 class="text-lg font-semibold text-gray-700 mb-2">Job Posted</h3>
-    <div v-if="jobsOpening === null || jobsOpening === '' || !jobsOpening" class="border rounded-lg shadow-md p-4 bg-white w-full text-center">
+    <div v-if="jobsOpening === null || jobsOpening === '' || !jobsOpening.length" class="border rounded-lg shadow-md p-4 bg-white w-full text-center">
       <p class="text-gray-500 mb-5">No job openings available at the moment.</p>
       <router-link to="/sme/postjob" class="mt-4 px-4 py-2 bg-orange-200 text-black rounded-md hover:bg-orange-300 transition">
         Post a Job
       </router-link>
     </div>
 
-    <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="border rounded-lg shadow-md p-4 bg-white">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div v-for="(job, index) in jobsOpening" :key="job.JobID" class="border rounded-lg shadow-md p-4 bg-white">
         <div class="flex justify-between">
-          <div class="bg-red-100 p-2 rounded-md">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div :class="randomBgColor(index)" class="p-2 rounded-md">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" :class="randomIconColor(index)" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z" />
             </svg>
           </div>
-          <p class="text-gray-500 text-sm">Posted 3 October 2024</p>
+          <p class="text-gray-500 text-sm">Posted {{ new Date(job.CreatedAt).toLocaleDateString() }}</p>
         </div>
-        <h2 class="text-xl font-semibold mt-2">Instagram Admin</h2>
+        <h2 class="text-xl font-semibold mt-2">{{ job.JobTitle }}</h2>
         <p class="text-yellow-500 text-sm mt-1">
           <span class="inline-block mr-1">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
             </svg>
           </span>
-          37 Applicants
+          {{ job.JobType }}
         </p>
-      </div>
-
-      <div class="border rounded-lg shadow-md p-4 bg-white">
-        <div class="flex justify-between">
-          <div class="bg-blue-100 p-2 rounded-md">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z" />
-            </svg>
-          </div>
-          <p class="text-gray-500 text-sm">Posted 2 October 2024</p>
-        </div>
-        <h2 class="text-xl font-semibold mt-2">Graphic Designer</h2>
-        <p class="text-yellow-500 text-sm mt-1">
-          <span class="inline-block mr-1">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-            </svg>
-          </span>
-          22 Applicants
-        </p>
+        <p class="text-gray-700 mt-2">{{ job.JobDescription }}</p>
       </div>
     </div>
   </div>
@@ -158,9 +139,11 @@ export default {
         SMETypeName: '',
         SMETypeDescription: ''
       },
-      jobsOpening: null,
-      companyLogo: '/public/assets/img/store-logo.png',
-      location: 'Jakarta, Indonesia'
+      jobsOpening: [],
+      companyLogo: '/public/assets/img/default-photo.jpg',
+      location: 'Jakarta, Indonesia',
+      bgColors: ["bg-red-100", "bg-blue-100", "bg-green-100", "bg-purple-100"],
+      iconColors: ["text-red-500", "text-blue-500", "text-green-500", "text-purple-500"],
     };
   },
   computed: {
@@ -168,8 +151,9 @@ export default {
       return this.activeStatus ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800';
     }
   },
-  mounted() {
-    this.fetchSMEProfile();
+  async mounted() {
+    await this.fetchSMEProfile();
+    await this.fetchJobBySME();
   },
   methods: {
     async fetchSMEProfile() {
@@ -189,11 +173,27 @@ export default {
           SMETypeName: data.SMEType.SMETypeName || 'N/A',
           SMETypeDescription: data.SMEType.SMETypeDescription || 'N/A',
         };
-        this.jobsOpening = data.JobsOpening;
       } catch (error) {
         console.error('Error fetching SME profile:', error);
       }
     },
+    async fetchJobBySME() {
+      try {
+        const response = await SMEService.getAllJobs();
+        
+        if(response && response.length > 0){
+          this.jobsOpening = response;
+        }
+      } catch (error) {
+        console.error('Error fetching job openings:', error);
+      }
+    },
+    randomBgColor(index) {
+      return this.bgColors[index % this.bgColors.length];
+    },
+    randomIconColor(index) {
+      return this.iconColors[index % this.iconColors.length];
+    }
   }
 };
 </script>
