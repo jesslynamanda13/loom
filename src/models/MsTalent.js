@@ -60,3 +60,15 @@ export class EditPersonalInformationTalentDTO {
     this.phoneNumber = phoneNumber
   }
 }
+
+export class EditCVTalentDTO {
+  constructor(cv) {
+    this.cv = cv
+  }
+}
+
+export class EditPortfolioTalentDTO {
+  constructor(portfolio) {
+    this.portfolio = portfolio
+  }
+}

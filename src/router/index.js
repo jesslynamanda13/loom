@@ -8,11 +8,12 @@ import SearchPage from '@/pages/sme/SearchPage.vue'
 import PostJobPage from '@/pages/sme/PostJobPage.vue'
 import ProfilePage from '@/pages/sme/ProfilePage.vue'
 import MyJobsPage from '@/pages/talent/MyJobsPage.vue'
-import TalentProfilePage from '@/pages/talent/TalentProfilePage.vue'
+import TalentProfilePage from '@/pages/talent/profile/TalentProfilePage.vue'
 import checkUserRole from '@/middleware/RoleGuard'
 import TalentDetailComponent from '@/components/sme/search/TalentDetailComponent.vue'
 import JobDetailsPage from '@/pages/talent/JobDetailsPage.vue'
 import MyJobPage from '@/pages/sme/MyJobPage.vue'
+import TalentCVPortfolioPage from '@/pages/talent/profile/TalentCVPortfolioPage.vue'
 
 const routes = [
   {
@@ -62,6 +63,16 @@ const routes = [
     name: 'TalentProfilePage',
     component: TalentProfilePage,
     meta: { title: 'Profile', requiresAuth: true, role: 'Talent' }
+  },
+  {
+    path: '/talent/cv-portfolio',
+    name: 'TalentCVPortfolioPage',
+    component: TalentCVPortfolioPage,
+    meta: {
+      title: 'CV & Portfolio',
+      requiresAuth: true,
+      role: 'Talent'
+    }
   },
 
   {

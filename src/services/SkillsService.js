@@ -14,6 +14,7 @@ const SkillsService = {
           Authorization: `Bearer ${token}`
         }
       })
+
       return response
     } catch (error) {
       console.error('Error editing talent profile:', error)
