@@ -55,6 +55,7 @@ const SMEService = {
           Authorization: `Bearer ${token}`
         }
       })
+      console.log(response.data)
       return response.data['Data']
     } catch (error) {
       console.error('Error fetching talent profile:', error)
@@ -118,6 +119,27 @@ const SMEService = {
     } catch (error) {
       console.error('Error fetching all jobs:', error);
       throw error;
+    }
+  },
+
+  async editSME(editSMEDTO) {
+    try {
+      const token = localStorage.getItem('authToken')
+
+      if (!token) {
+        throw new Error('Token not found')
+      }
+
+      const response = await api.post('/private/edit-sme', editSMEDTO, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+
+      return response.data
+    } catch (error) {
+      console.error('Error editing SME details:', error)
+      throw error
     }
   }
 }

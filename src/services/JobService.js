@@ -24,6 +24,7 @@ const JobService = {
       throw error
     }
   },
+
   async getSkillsByJobId(jobId) {
     try {
       const response = await api.get(`/private/jobs/${jobId}/skills`)

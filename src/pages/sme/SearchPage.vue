@@ -28,7 +28,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
             </svg>
           </button>
-          <TalentDetailComponent :talent="selectedTalent" />
+          <TalentDetailComponent :talent="selectedTalent" :portfolio="portfolios" />
         </template>
       </div>
     </section>
@@ -40,6 +40,7 @@ import SideBarComponent from '@/components/sme/navigation/SideBarComponent.vue';
 import SearchTalent from '@/components/sme/search/SearchTalent.vue';
 import TalentCard from '@/components/sme/search/TalentCard.vue';
 import TalentDetailComponent from '@/components/sme/search/TalentDetailComponent.vue';
+import PortfolioService from '@/services/PortfolioService';
 import TalentService from '@/services/TalentService';
 
 export default {
@@ -66,11 +67,11 @@ export default {
         Skills: [],
         AvgRating: 0,
         HireCount: 0,
-        ProfilePicture: '/public/assets/img/default-photo.svg',
+        ProfilePicture: '/public/assets/img/template-profile-pic.png',
         CV: '',
-        Portofolio: null,
         Location: 'Jakarta, Indonesia'
-      }
+      },
+      portfolios: [],
     };
   },
   computed: {
@@ -90,7 +91,7 @@ export default {
       });
     }
   },
-  async created() { 
+  async created() {
     await this.fetchAllTalents();
   },
   methods: {
@@ -104,21 +105,21 @@ export default {
         console.error('Error fetching talents:', error);
       }
     },
-    toggleSidebar() {
-      this.isSidebarCollapsed = !this.isSidebarCollapsed;
-    },
-    handleSearch(query) {
-      this.searchQuery = query; 
-    },
-    handleToggleFavorite(index) {
-      this.talents[index].isFavorited = !this.talents[index].isFavorited;
-    },
-    goToTalentDetail(talent) {
+    async goToTalentDetail(talent) {
       this.selectedTalent = talent; 
+      try {
+        const portfolios = await PortfolioService.getPortfolioByTalentId(talent.TalentID);
+        console.log(portfolios)
+        this.portfolios = portfolios
+      } catch (error) {
+        console.error('Error fetching portfolios:', error);
+      }
     },
     backToTalentList() {
-      this.selectedTalent = null; 
+      this.selectedTalent = null;
+      this.portfolios = [];
     }
   }
 };
 </script>
+

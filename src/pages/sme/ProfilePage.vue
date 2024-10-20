@@ -5,36 +5,40 @@
           <SideBarComponent @toggle="toggleSidebar" />
         </div>
   
-        <div :class="[mainContentWidthClass, 'p-4']">
-            <template v-if="!selectedJob">
-                <SMEProfileDetailComponent :vacancies="jobs" @show-detail="goToJobDetail"/>
-            </template>
-            
-            <template v-else>
-                <button @click="backToJobList" class="flex items-center text-gray-500 mb-5">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
-                    </svg>
-                </button>
-                <JobDetailComponent :job="selectedJob" :candidates="applicantsList" />
-            </template>
+        <div :class="[mainContentWidthClass, 'p-4 space-y-5']">
+          <template v-if="!selectedJob">
+            <SMEProfileDetailComponent />
+            <VacanciesList :vacancies="jobs" @show-detail="goToJobDetail" />
+          </template>
+  
+          <template v-else>
+            <button @click="backToJobList" class="flex items-center text-gray-500 mb-5">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
+              </svg>
+            </button>
+            <JobDetailComponent :job="selectedJob" :candidates="applicantsList" />
+          </template>
         </div>
       </section>
-    </div>  
+    </div>
 </template>
 
 <script>
+    import VacanciesList from '@/components/sme/dashboard/CurrentVacancyComponent.vue';
     import JobDetailComponent from '@/components/sme/job/JobDetailComponent.vue';
     import SideBarComponent from '@/components/sme/navigation/SideBarComponent.vue';
     import SMEProfileDetailComponent from '@/components/sme/profile/SMEProfileDetailComponent.vue';
-import SMEService from '@/services/SMEService';
+    import SMEService from '@/services/SMEService';
+
 
     export default{
         name: 'ProfilePage',
         components: {
             SideBarComponent,
             SMEProfileDetailComponent,
-            JobDetailComponent
+            JobDetailComponent,
+            VacanciesList,
         },
         data() {
             return {

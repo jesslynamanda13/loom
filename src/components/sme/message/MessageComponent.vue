@@ -46,7 +46,7 @@
       <div class="flex-1 p-4 bg-gray-50 overflow-y-auto">
         <div v-for="(message, index) in selectedMessage.conversation" :key="index" class="mb-6">
           <p class="text-gray-400 text-xs mb-5 text-center">{{ message.date }}</p>
-          <div class="bg-white p-4 rounded-lg shadow-md">
+          <div class="bg-white p-4 rounded-lg shadow-md max-w-md">
             <p>{{ message.text }}</p>
           </div>
         </div>
@@ -77,34 +77,34 @@
           {
             avatar: '/public/assets/img/profile-pic-6.jpg',
             name: 'Sarah Johnson',
-            lastMessage: 'Good Afternoon, AngelStore. I am Sarah Johnson...',
+            lastMessage: 'Good Afternoon, Brodo. I am Sarah Johnson...',
             time: 'Today',
             email: 'sarah.johnson@gmail.com',
             unread: 2,
             conversation: [
-              { date: 'Thursday, 3 October 2024', text: 'Good Afternoon, AngelStore. I am Sarah Johnson...' }
+              { date: 'Thursday, 3 October 2024', text: 'Good Afternoon, Brodo, I am Sarah Johnson, and I wanted to reach out to express my appreciation for your brand. I recently purchased a pair of shoes from Brodo, and I am beyond impressed with the quality and comfort they provide. It\'s rare to find a product that seamlessly combines style and durability, and I believe Brodo has mastered that balance.' }
             ]
           },
           {
             avatar: '/public/assets/img/profile-pic-2.jpg',
             name: 'Michael Green',
-            lastMessage: 'Hello AngelStore, I wanted to inform you that...',
+            lastMessage: 'Hello Brodo, I wanted to inform you that...',
             time: 'Today',
             email: 'michael.green@gmail.com',
             unread: 1,
             conversation: [
-              { date: 'Thursday, 3 October 2024', text: 'Hello AngelStore, I wanted to inform you that...' }
+              { date: 'Thursday, 3 October 2024', text: 'Hello Brodo, I wanted to inform you that I recently submitted my application for the Web Developer at your company and wanted to express my enthusiasm for the opportunity to be a part of the Brodo team. I’ve long admired your brand for its innovation, quality, and dedication to craftsmanship, and I believe my skills and passion for the industry align well with the goals and values of Brodo.' }
             ]
           },
           {
             avatar: '/public/assets/img/profile-pic-8.jpg',
             name: 'Amanda Lee',
-            lastMessage: 'Dear AngelStore, I wanted to take a moment...',
+            lastMessage: 'Dear Brodo, I wanted to take a moment...',
             time: 'Today',
             email: 'amanda.lee@gmail.com',
             unread: 3,
             conversation: [
-              { date: 'Thursday, 3 October 2024', text: 'Dear AngelStore, I wanted to take a moment...' }
+              { date: 'Thursday, 3 October 2024', text: 'Dear Brodo, I wanted to take a moment to express my gratitude for the excellent service and quality products that your team consistently delivers. As a loyal customer, I have always appreciated the attention to detail and craftsmanship that goes into every pair of shoes I’ve purchased from you.' }
             ]
           },
           {
@@ -115,7 +115,7 @@
             email: 'jason.miller@gmail.com',
             unread: 1,
             conversation: [
-              { date: 'Thursday, 3 October 2024', text: 'I hope you are doing well. I have some questions regarding t...' }
+              { date: 'Thursday, 3 October 2024', text: 'I hope you are doing well. I have some questions regarding the project we discussed earlier. I wanted to clarify a few details to ensure everything is aligned with the expectations and goals we\'ve set. First, could you provide more insight into the overall timeline and any specific milestones we should be aware of? This will help in better managing the deadlines and ensuring that each phase of the project runs smoothly.' }
             ]
           },
         ],
