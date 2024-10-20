@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     setDefaultImage(event) {
-      event.target.src = '/assets/img/default-photo.svg'; 
+      event.target.src = '/assets/img/template-profile-pic.png'; 
     },
     goToTalentDetail(talent) {
       this.$emit('show-detail', talent);

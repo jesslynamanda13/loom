@@ -86,7 +86,7 @@
           </div>
 
           <div v-else>
-            <div v-for="(project, index) in talent.Portfolio" :key="index" class="p-4 bg-gray-100 rounded-lg">
+            <div v-for="(project, index) in portfolio" :key="index" class="p-4 bg-gray-100 rounded-lg">
               <h3 class="font-semibold text-lg text-gray-800">{{ project.title }}</h3>
               <p class="text-gray-600">{{ project.description }}</p>
               <a :href="project.link" target="_blank" class="text-yellow-500 hover:underline mt-1 block">View Project</a>
@@ -105,10 +105,14 @@
         type: Object,
         required: true,
       },
+      portfolio:{
+        type: Object,
+        required: true,
+      },
     },
     methods:{
       setDefaultImage(event) {
-        event.target.src = '/assets/img/default-photo.svg'; 
+        event.target.src = '/assets/img/template-profile-pic.png'; 
       },
     }
   };

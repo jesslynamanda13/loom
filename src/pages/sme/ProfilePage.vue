@@ -5,9 +5,10 @@
           <SideBarComponent @toggle="toggleSidebar" />
         </div>
   
-        <div :class="[mainContentWidthClass, 'p-4']">
+        <div :class="[mainContentWidthClass, 'p-4 space-y-5']">
             <template v-if="!selectedJob">
-                <SMEProfileDetailComponent :vacancies="jobs" @show-detail="goToJobDetail"/>
+                <SMEProfileDetailComponent />
+                <VacanciesList :vacancies="jobs" @show-detail="goToJobDetail" />
             </template>
             
             <template v-else>
@@ -24,17 +25,20 @@
 </template>
 
 <script>
+    import VacanciesList from '@/components/sme/dashboard/CurrentVacancyComponent.vue';
     import JobDetailComponent from '@/components/sme/job/JobDetailComponent.vue';
     import SideBarComponent from '@/components/sme/navigation/SideBarComponent.vue';
     import SMEProfileDetailComponent from '@/components/sme/profile/SMEProfileDetailComponent.vue';
-import SMEService from '@/services/SMEService';
+    import SMEService from '@/services/SMEService';
+
 
     export default{
         name: 'ProfilePage',
         components: {
             SideBarComponent,
             SMEProfileDetailComponent,
-            JobDetailComponent
+            JobDetailComponent,
+            VacanciesList,
         },
         data() {
             return {

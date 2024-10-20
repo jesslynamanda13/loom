@@ -5,9 +5,9 @@
         <SideBarComponent @toggle="toggleSidebar" />
       </div>
 
-      <div :class="[mainContentWidthClass, 'p-4']">
+      <div :class="[mainContentWidthClass, 'p-4 space-y-5']">
         <template v-if="!selectedJob">
-          <div class="mb-5 w-full">
+          <div class="w-full">
             <VacanciesList :vacancies="jobs" @show-detail="goToJobDetail" />
           </div>
           <ApplicantsList />
