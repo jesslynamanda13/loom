@@ -4,6 +4,10 @@
       <div class="profile-information">
         <div class="title">
           <p class="font-bold text-lg">Display Profile</p>
+          <p class="mt-2 text-sm text-gray-600">
+            Here is what your profile looks like to employers. Make sure to keep your profile
+            complete and accurate.
+          </p>
         </div>
         <div class="mt-6 flex flex-row space-x-4 items-start">
           <img
