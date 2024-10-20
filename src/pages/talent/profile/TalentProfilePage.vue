@@ -23,6 +23,7 @@
             :fullName="talentProfile.FullName"
             :initialBio="talentProfile.Bio"
             :initialLocation="talentProfile.Location"
+            :initialSkills="[]"
             @changes-saved="onChangesSaved"
           />
 
