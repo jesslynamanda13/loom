@@ -10,7 +10,7 @@
           <div class="w-full">
             <VacanciesList :vacancies="jobs" @show-detail="goToJobDetail" />
           </div>
-          <ApplicantsList />
+          <ApplicantsList :applicants="applicantsList" />
         </template>
 
         <template v-else>
@@ -27,11 +27,12 @@
 </template>
 
 <script>
-import VacanciesList from '@/components/sme/dashboard/CurrentVacancyComponent.vue'
-import SideBarComponent from '@/components/sme/navigation/SideBarComponent.vue'
-import ApplicantsList from '@/components/sme/job/ApplicantsComponent.vue'
-import JobDetailComponent from '@/components/sme/job/JobDetailComponent.vue'
+import VacanciesList from '@/components/sme/dashboard/CurrentVacancyComponent.vue';
+import SideBarComponent from '@/components/sme/navigation/SideBarComponent.vue';
+import ApplicantsList from '@/components/sme/job/ApplicantsComponent.vue';
+import JobDetailComponent from '@/components/sme/job/JobDetailComponent.vue';
 import SMEService from '@/services/SMEService';
+import ApplicantsService from '@/services/ApplicantsService';
 
 export default {
   name: 'MyJobPage',
@@ -39,145 +40,14 @@ export default {
     SideBarComponent,
     VacanciesList,
     ApplicantsList,
-    JobDetailComponent
+    JobDetailComponent,
   },
   data() {
     return {
       isSidebarCollapsed: false,
       selectedJob: null,
       jobs: [],
-      applicantsList: [
-        {
-          fullName: 'Ahmad Pratama',
-          email: 'ahmad.pratama@gmail.com',
-          role: 'Instagram Admin',
-          contact: '+62 812 3456 7890',
-          location: 'Jakarta',
-          appliedDate: 'Oct 4, 2024',
-          stage: 'Reviewed',
-          profilePicture: '/public/assets/img/profile-pic-1.jpg'
-        },
-        {
-          fullName: 'Siti Rahmawati',
-          email: 'siti.rahmawati@gmail.com',
-          role: 'Instagram Admin',
-          contact: '+62 811 2345 9876',
-          location: 'Bandung',
-          appliedDate: 'Sep 29, 2024',
-          stage: 'Interviewed',
-          profilePicture: '/public/assets/img/profile-pic-6.jpg'
-        },
-        {
-          fullName: 'Budi Santoso',
-          email: 'budi.santoso@gmail.com',
-          role: 'Graphic Designer',
-          contact: '+62 822 3456 7891',
-          location: 'Surabaya',
-          appliedDate: 'Sep 15, 2024',
-          stage: 'Interviewed',
-          profilePicture: '/public/assets/img/profile-pic-2.jpg'
-        },
-        {
-          fullName: 'Dewi Ayu',
-          email: 'dewi.ayu@gmail.com',
-          role: 'Instagram Admin',
-          contact: '+62 813 9876 5432',
-          location: 'Yogyakarta',
-          appliedDate: 'Aug 31, 2024',
-          stage: 'Hired',
-          profilePicture: '/public/assets/img/profile-pic-7.jpg'
-        },
-        {
-          fullName: 'Rahmat Hidayat',
-          email: 'rahmat.hidayat@gmail.com',
-          role: 'Instagram Admin',
-          contact: '+62 812 8765 4321',
-          location: 'Medan',
-          appliedDate: 'Oct 5, 2024',
-          stage: 'Reviewed',
-          profilePicture: '/public/assets/img/profile-pic-3.jpg'
-        },
-        {
-          fullName: 'Fitri Susanti',
-          email: 'fitri.susanti@gmail.com',
-          role: 'Instagram Admin',
-          contact: '+62 819 2345 6789',
-          location: 'Malang',
-          appliedDate: 'Sep 18, 2024',
-          stage: 'Interviewed',
-          profilePicture: '/public/assets/img/profile-pic-8.jpg'
-        },
-        {
-          fullName: 'Andi Wijaya',
-          email: 'andi.wijaya@gmail.com',
-          role: 'Graphic Designer',
-          contact: '+62 821 3456 7890',
-          location: 'Makassar',
-          appliedDate: 'Aug 25, 2024',
-          stage: 'Reviewed',
-          profilePicture: '/public/assets/img/profile-pic-4.jpg'
-        },
-        {
-          fullName: 'Rina Setiawan',
-          email: 'rina.setiawan@gmail.com',
-          role: 'Instagram Admin',
-          contact: '+62 814 5678 1234',
-          location: 'Bali',
-          appliedDate: 'Jul 19, 2024',
-          stage: 'Hired',
-          profilePicture: '/public/assets/img/profile-pic-9.jpg'
-        },
-        {
-          fullName: 'Arif Kurniawan',
-          email: 'arif.kurniawan@gmail.com',
-          role: 'Instagram Admin',
-          contact: '+62 823 9876 5432',
-          location: 'Balikpapan',
-          appliedDate: 'Sep 9, 2024',
-          stage: 'Reviewed',
-          profilePicture: '/public/assets/img/profile-pic-5.jpg'
-        },
-        {
-          fullName: 'Nia Safitri',
-          email: 'nia.safitri@gmail.com',
-          role: 'Graphic Designer',
-          contact: '+62 815 6789 4321',
-          location: 'Semarang',
-          appliedDate: 'Oct 1, 2024',
-          stage: 'Interviewed',
-          profilePicture: '/public/assets/img/profile-pic-10.jpg'
-        },
-        {
-          fullName: 'Liliana Muthe',
-          email: 'liliana.muthe@gmail.com',
-          role: 'Instagram Admin',
-          contact: '+62 816 7890 5432',
-          location: 'Palembang',
-          appliedDate: 'Aug 22, 2024',
-          stage: 'Interviewed',
-          profilePicture: '/public/assets/img/profile-pic-11.jpg'
-        },
-        {
-          fullName: 'Lisa Melati',
-          email: 'lisa.melati@gmail.com',
-          role: 'Graphic Designer',
-          contact: '+62 818 2345 6789',
-          location: 'Bogor',
-          appliedDate: 'Sep 30, 2024',
-          stage: 'Hired',
-          profilePicture: '/public/assets/img/profile-pic-12.jpg'
-        },
-        {
-          fullName: 'Susanti Mustia',
-          email: 'susanti.mustia@gmail.com',
-          role: 'Instagram Admin',
-          contact: '+62 817 5678 1234',
-          location: 'Pontianak',
-          appliedDate: 'Jul 25, 2024',
-          stage: 'Reviewed',
-          profilePicture: '/public/assets/img/profile-pic-13.jpg'
-        }
-      ],
+      applicantsList: [], 
     };
   },
   computed: {
@@ -193,10 +63,18 @@ export default {
       this.isSidebarCollapsed = !this.isSidebarCollapsed;
     },
     goToJobDetail(job) {
+      console.log("Selected Job:", job); 
       this.selectedJob = job;
+
+      if (job.JobID) {
+          this.fetchApplicantsForJob(job.JobID); 
+      } else {
+          console.error("JobID is undefined for the selected job.");
+      }
     },
     backToJobList() {
       this.selectedJob = null;
+      this.applicantsList = []; 
     },
     async fetchJobs() {
       try {
@@ -215,10 +93,40 @@ export default {
       } catch (error) {
         console.error('Error fetching jobs:', error);
       }
+    },
+    async fetchApplicants(jobId) {
+      try {
+        console.log(jobId);
+        const applicants = await ApplicantsService.getApplicantsByJob(jobId);
+        return applicants.map(applicant => ({
+          fullName: applicant.FullName,
+          email: applicant.Email,
+          role: applicant.Role,
+          contact: applicant.Contact,
+          location: applicant.Location,
+          appliedDate: applicant.AppliedDate,
+          stage: applicant.Stage,
+          profilePicture: applicant.ProfilePicture
+        }));
+      } catch (error) {
+        console.error('Error fetching applicants:', error);
+        return [];
+      }
+    },
+    async fetchApplicantsForJob(jobId) {
+      const applicants = await this.fetchApplicants(jobId);
+      this.applicantsList = applicants;
+    },
+    async fetchAllApplicantsForJobs() {
+      for (const job of this.jobs) {
+        const applicants = await this.fetchApplicants(job.id); 
+        this.applicantsList.push(...applicants); 
+      }
     }
   },
-  mounted() {
-    this.fetchJobs();
+  async mounted() {
+    await this.fetchJobs();
+    await this.fetchAllApplicantsForJobs(); 
   }
 };
 </script>

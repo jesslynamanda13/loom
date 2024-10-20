@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto p-4 bg-white rounded-lg border border-gray-300">
+  <div class="p-4 bg-white rounded-lg border border-gray-300">
     <div class="flex justify-between items-center mb-4">
       <h2 class="text-2xl font-semibold text-gray-500"> {{ job.title }} </h2>
       <div class="flex space-x-2">
@@ -71,7 +71,7 @@
             <div class="flex flex-col mb-4">
               <h1 class="text-xl font-semibold mb-2">Skills Required</h1>
               <div class="flex flex-wrap my-2">
-                <span v-for="skill in job.skills" :key="skill" class="bg-orange-100 text-red-700 px-5 py-1 rounded-full text-sm mr-2">
+                <span v-for="skill in skills" :key="skill" class="bg-orange-100 text-red-700 px-5 py-1 rounded-full text-sm mr-2">
                   {{ skill }}
                 </span>
               </div>
@@ -91,7 +91,7 @@
 
 <script>
   import ApplicantsList from '@/components/sme/job/ApplicantsComponent.vue';
-
+  import JobService from '@/services/JobService';
   export default {
     name: 'JobDetailComponent',
     props: {
@@ -110,12 +110,21 @@
         tabs: [
           { name: 'Job Details' },
           { name: 'Applicants' }
-        ]
+        ],
+        skills: [],
       }
     },
     computed: {
       filteredApplicants() {
         return this.candidates.filter(applicant => applicant.jobId === this.job.id);
+      }
+    },
+    created() {
+      this.fetchSkills(); 
+    },
+    methods: {
+      async fetchSkills() {
+        this.skills = await JobService.getSkillsByJobId(this.job.id); 
       }
     },
     components: {
