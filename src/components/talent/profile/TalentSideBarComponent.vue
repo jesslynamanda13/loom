@@ -133,8 +133,8 @@ export default {
     },
     getNavClass(path) {
       return {
-        'text-black': this.currentPage === path,
-        'text-gray-600': this.currentPage !== path,
+        'text-black font-bold': this.currentPage === path,
+        'text-gray-400 font-bold': this.currentPage !== path,
         'flex items-center p-2 hover:bg-gray-200 rounded-lg': true
       }
     }

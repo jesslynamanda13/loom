@@ -13,20 +13,26 @@
         />
         <WarningMessage v-if="warningMessage" :warningMessage="warningMessage" />
         <p class="text-2xl font-bold">Profile</p>
-        <TalentProfileComponent
-          v-if="talentProfile.FullName && talentProfile.Bio && talentProfile.Location"
-          :fullName="talentProfile.FullName"
-          :initialBio="talentProfile.Bio"
-          :initialLocation="talentProfile.Location"
-          @changes-saved="onChangesSaved"
-        />
+        <p class="mt-2 text-sm text-gray-600">
+          You can view and update your personal information, bio, and location. Make sure to keep
+          your profile complete and up-to-date to attract potential employers.
+        </p>
+        <div class="content mt-4 flex flex-col space-y-4">
+          <TalentProfileComponent
+            v-if="talentProfile.FullName && talentProfile.Bio && talentProfile.Location"
+            :fullName="talentProfile.FullName"
+            :initialBio="talentProfile.Bio"
+            :initialLocation="talentProfile.Location"
+            @changes-saved="onChangesSaved"
+          />
 
-        <PersonalInformationComponent
-          :full-name="talentProfile.FullName"
-          :email="talentProfile.Email"
-          :phone-number="talentProfile.PhoneNumber"
-          @changes-saved="onChangesSaved"
-        />
+          <PersonalInformationComponent
+            :full-name="talentProfile.FullName"
+            :email="talentProfile.Email"
+            :phone-number="talentProfile.PhoneNumber"
+            @changes-saved="onChangesSaved"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -105,7 +111,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-/* Add styles for sidebar and layout if needed */
-</style>
