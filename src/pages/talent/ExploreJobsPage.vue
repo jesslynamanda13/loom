@@ -30,7 +30,6 @@
       </div>
     </div>
 
-    <!-- Filter Results Section -->
     <div class="search-results px-24 mt-8">
       <div class="filter-results flex justify-between items-center">
         <div class="text-lg font-semibold w-1/2">
@@ -151,8 +150,6 @@
                 />
               </svg>
             </button>
-
-            <!-- Dropdown menu -->
             <div
               v-if="isJobTypeDropdownOpen"
               id="jobTypeDropdown"
@@ -171,17 +168,17 @@
                 <li>
                   <a
                     href="#"
-                    @click.prevent="selectJobTypeOption('Part-Time')"
+                    @click.prevent="selectJobTypeOption('Part-time')"
                     class="block px-4 py-2 hover:bg-gray-100 rounded-md"
-                    >Part-Time</a
+                    >Part-time</a
                   >
                 </li>
                 <li>
                   <a
                     href="#"
-                    @click.prevent="selectJobTypeOption('Full-Time')"
+                    @click.prevent="selectJobTypeOption('Full-time')"
                     class="block px-4 py-2 hover:bg-gray-100 rounded-md"
-                    >Full-Time</a
+                    >Full-time</a
                   >
                 </li>
               </ul>
@@ -255,83 +252,28 @@
         </div>
       </div>
       <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <JobCardComponent
-          companyName="Tenue de Attire"
-          companyLogo="/assets/img/company-logo.png"
-          jobTitle="Mobile Developer"
-          location="Jakarta"
-          workType="Part-Time"
-          hoursPerWeek="20 hours per week"
-          workArrangement="Remote"
-          salary="Rp. 600.000/week"
-          :skills="['Mobile Development', 'UI/UX Design']"
-          jobDescription="As a Mobile Developer at Tenue d'Attire, you will play a key role in designing,..."
-          @applyJob="showModal = true"
-        />
-
-        <JobCardComponent
-          companyName="Creative Studio"
-          companyLogo="/assets/img/company-logo.png"
-          jobTitle="Graphic Designer"
-          location="Jakarta"
-          workType="Full-Time"
-          hoursPerWeek="40 hours per week"
-          workArrangement="On-Site"
-          salary="Rp. 8.000.000/month"
-          :skills="['Graphic Design', 'Adobe Suite']"
-          jobDescription="As a Graphic Designer at Creative Studio, you will create visual concepts,..."
-        />
-
-        <JobCardComponent
-          companyName="Tech Innovations"
-          companyLogo="/assets/img/company-logo.png"
-          jobTitle="Software Engineer"
-          location="Jakarta"
-          workType="Full-Time"
-          hoursPerWeek="40 hours per week"
-          workArrangement="Hybrid"
-          salary="Rp. 10.000.000/month"
-          :skills="['JavaScript', 'Node.js']"
-          jobDescription="As a Software Engineer at Tech Innovations, you will develop software applications,..."
-        />
-        <JobCardComponent
-          companyName="Tenue de Attire"
-          companyLogo="/assets/img/company-logo.png"
-          jobTitle="Mobile Developer"
-          location="Jakarta"
-          workType="Part-Time"
-          hoursPerWeek="20 hours per week"
-          workArrangement="Remote"
-          salary="Rp. 600.000/week"
-          :skills="['Mobile Development', 'UI/UX Design']"
-          jobDescription="As a Mobile Developer at Tenue d'Attire, you will play a key role in designing,..."
-        />
-
-        <JobCardComponent
-          companyName="Creative Studio"
-          companyLogo="/assets/img/company-logo.png"
-          jobTitle="Graphic Designer"
-          location="Jakarta"
-          workType="Full-Time"
-          hoursPerWeek="40 hours per week"
-          workArrangement="On-Site"
-          salary="Rp. 8.000.000/month"
-          :skills="['Graphic Design', 'Adobe Suite']"
-          jobDescription="As a Graphic Designer at Creative Studio, you will create visual concepts,..."
-        />
-
-        <JobCardComponent
-          companyName="Tech Innovations"
-          companyLogo="/assets/img/company-logo.png"
-          jobTitle="Software Engineer"
-          location="Jakarta"
-          workType="Full-Time"
-          hoursPerWeek="40 hours per week"
-          workArrangement="Hybrid"
-          salary="Rp. 10.000.000/month"
-          :skills="['JavaScript', 'Node.js']"
-          jobDescription="As a Software Engineer at Tech Innovations, you will develop software applications,..."
-        />
+        <template v-if="filteredJobs.length > 0">
+          <JobCardComponent
+            v-for="(job, index) in filteredJobs"
+            :key="index"
+            :companyName="job.CompanyName"
+            :jobTitle="job.JobTitle"
+            :location="job.Location"
+            :workType="job.JobType"
+            :workArrangement="job.JobArrangement"
+            :salary="job.Wage"
+            :skills="job.Skills"
+            :jobDescription="job.JobDescription"
+          />
+        </template>
+        <template v-else>
+          <div
+            class="col-span-full text-center text-sm p-24 text-gray-500 mt-4 flex flex-col items-center space-y-12"
+          >
+            <img src="/assets/img/not-found.png" class="w-24" />
+            <p>There are no matching jobs available to your filters :(</p>
+          </div>
+        </template>
       </div>
     </div>
     <div
@@ -352,6 +294,7 @@ import JobCardComponent from '@/components/talent/JobCardComponent.vue'
 import FooterComponent from '@/components/FooterComponent.vue'
 import JobApplicationModalComponent from '@/components/talent/application/JobApplicationModalComponent.vue'
 import SkillsService from '@/services/SkillsService'
+import JobService from '@/services/JobService'
 
 export default {
   name: 'ExploreJobsPage',
@@ -370,13 +313,33 @@ export default {
       selectedJobType: 'Type',
       isSkillsDropdownOpen: false,
       selectedSkills: [],
-      skills: []
+      skills: [],
+      jobs: []
     }
   },
   created() {
     this.fetchSkills()
   },
+  async mounted() {
+    this.fetchJobs()
+  },
   computed: {
+    filteredJobs() {
+      return this.jobs.filter((job) => {
+        const matchesWorkArrangement =
+          this.selectedWorkArrangement === 'Work Arrangement' ||
+          job.JobArrangement === this.selectedWorkArrangement
+
+        const matchesJobType =
+          this.selectedJobType === 'Type' || job.JobType === this.selectedJobType
+
+        const matchesSkills =
+          this.selectedSkills.length === 0 ||
+          this.selectedSkills.every((skill) => job.Skills.includes(skill))
+
+        return matchesWorkArrangement && matchesJobType && matchesSkills
+      })
+    },
     selectedOptionClass() {
       return this.selectedWorkArrangement !== 'Work Arrangement'
         ? 'text-red-800 border-red-500'
@@ -407,6 +370,15 @@ export default {
     }
   },
   methods: {
+    async fetchJobs() {
+      try {
+        const response = await JobService.getJobs()
+        this.jobs = Array.from(response)
+        console.log(this.jobs)
+      } catch (error) {
+        console.log(error)
+      }
+    },
     async fetchSkills() {
       try {
         const response = await SkillsService.getAllSkills()
