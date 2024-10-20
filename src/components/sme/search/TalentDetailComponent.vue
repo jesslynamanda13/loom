@@ -78,21 +78,17 @@
   
       <div class="mb-6">
         <h2 class="text-xl font-semibold text-gray-800 mb-3">Portfolio</h2>
-        <div class="space-y-4">
-          <div v-if="!talent.Portfolio || talent.Portfolio.length === 0">
-            <span class="text-gray-600">
-              {{ talent.FullName }} doesn't have any portfolio yet.
-            </span>
-          </div>
-
-          <div v-else>
-            <div v-for="(project, index) in portfolio" :key="index" class="p-4 bg-gray-100 rounded-lg">
-              <h3 class="font-semibold text-lg text-gray-800">{{ project.title }}</h3>
-              <p class="text-gray-600">{{ project.description }}</p>
-              <a :href="project.link" target="_blank" class="text-yellow-500 hover:underline mt-1 block">View Project</a>
-            </div>
+        <div v-if="portfolio.length > 0" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div v-for="(item, index) in portfolio" :key="index" class="border p-4 rounded-lg shadow-md">
+            <a :href="item.URL" target="_blank" class="block mb-2">
+              <img :src="item.CoverImage" alt="Cover Image" class="w-full h-48 object-cover rounded-lg" />
+            </a>
+            <h3 class="font-semibold text-lg text-gray-800">{{ item.Title }}</h3>
+            <p class="text-gray-600 text-xs">{{ item.Description }}</p>
+            <a :href="item.ProjectLink" target="_blank" class="text-blue-500 hover:underline">View Project</a>
           </div>
         </div>
+        <div v-else class="text-gray-500">No portfolio available.</div>
       </div>
     </div>
 </template>
@@ -101,14 +97,8 @@
   export default {
     name: 'TalentDetailComponent',
     props: {
-      talent: {
-        type: Object,
-        required: true,
-      },
-      portfolio:{
-        type: Object,
-        required: true,
-      },
+      talent: Object,
+      portfolio: Array
     },
     methods:{
       setDefaultImage(event) {

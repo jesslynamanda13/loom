@@ -91,9 +91,8 @@ export default {
       });
     }
   },
-  async created() { 
+  async created() {
     await this.fetchAllTalents();
-    await this.fetchUserPortfolios(); 
   },
   methods: {
     async fetchAllTalents() {
@@ -106,38 +105,21 @@ export default {
         console.error('Error fetching talents:', error);
       }
     },
-    async fetchUserPortfolios() {
-      try {
-        const portfolios = await PortfolioService.getPortfolio();
-        if (portfolios && portfolios.length > 0) {
-          this.portfolios = portfolios;
-        }
-      } catch (error) {
-        console.error('Error fetching portfolios:', error);
-      }
-    },
-    toggleSidebar() {
-      this.isSidebarCollapsed = !this.isSidebarCollapsed;
-    },
-    handleSearch(query) {
-      this.searchQuery = query; 
-    },
-    handleToggleFavorite(index) {
-      this.talents[index].isFavorited = !this.talents[index].isFavorited;
-    },
     async goToTalentDetail(talent) {
       this.selectedTalent = talent; 
       try {
-        const portfolios = await PortfolioService.getPortfolioByTalent(talent.TalentID);
-        this.portfolios = portfolios.data;
+        const portfolios = await PortfolioService.getPortfolioByTalentId(talent.TalentID);
+        console.log(portfolios)
+        this.portfolios = portfolios
       } catch (error) {
         console.error('Error fetching portfolios:', error);
       }
     },
     backToTalentList() {
-      this.selectedTalent = null; 
+      this.selectedTalent = null;
       this.portfolios = [];
     }
   }
 };
 </script>
+
