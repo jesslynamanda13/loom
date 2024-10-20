@@ -14,11 +14,11 @@
           Find jobs with no hassle with loom!
         </h1>
       </div>
-      <!-- search bar -->
       <div class="absolute inset-x-0 bottom-0 mb-8 flex justify-center">
         <div class="relative w-5/6 md:w-1/2">
           <input
             type="text"
+            v-model="searchQuery"
             class="w-full px-4 py-4 border border-gray-400 rounded-md pr-10 shadow-sm"
             placeholder="Search by job title, SME name, and skills"
           />
@@ -256,6 +256,7 @@
           <JobCardComponent
             v-for="(job, index) in filteredJobs"
             :key="index"
+            :jobId="job.JobID"
             :companyName="job.CompanyName"
             :jobTitle="job.JobTitle"
             :location="job.Location"
@@ -264,6 +265,7 @@
             :salary="job.Wage"
             :skills="job.Skills"
             :jobDescription="job.JobDescription"
+            @applyJob="handleApplyJob"
           />
         </template>
         <template v-else>
@@ -314,7 +316,8 @@ export default {
       isSkillsDropdownOpen: false,
       selectedSkills: [],
       skills: [],
-      jobs: []
+      jobs: [],
+      searchQuery: ''
     }
   },
   created() {
@@ -337,7 +340,14 @@ export default {
           this.selectedSkills.length === 0 ||
           this.selectedSkills.every((skill) => job.Skills.includes(skill))
 
-        return matchesWorkArrangement && matchesJobType && matchesSkills
+        const matchesSearchQuery =
+          job.JobTitle.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          job.Skills.some((skill) =>
+            skill.toLowerCase().includes(this.searchQuery.toLowerCase())
+          ) ||
+          job.JobType.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          job.JobArrangement.toLowerCase().includes(this.searchQuery.toLowerCase())
+        return matchesWorkArrangement && matchesJobType && matchesSkills && matchesSearchQuery
       })
     },
     selectedOptionClass() {
@@ -413,19 +423,21 @@ export default {
     },
     hideSkillsDropdown() {
       this.isSkillsDropdownOpen = false
+    },
+    handleApplyJob() {
+      this.showModal = true
     }
   }
 }
 </script>
 
 <style scoped>
-/* Optional styles for the input field */
 input:focus {
   outline: none;
-  border-color: #3182ce; /* Example for focus state */
+  border-color: #3182ce;
 }
 .form-checkbox:checked {
-  background-color: #9d0000; /* Checkbox color */
+  background-color: #9d0000;
 }
 .work-arr-dropdown {
   cursor: pointer;

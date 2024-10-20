@@ -64,7 +64,10 @@
           >
             <div class="left w-56">
               <p class="font-bold text-2xl">Ready to transform the way you work?</p>
-              <button class="mt-4 bg-black text-white text-sm font-medium py-4 px-10 rounded-lg">
+              <button
+                @click="navigateToSignUp"
+                class="mt-4 bg-black text-white text-sm font-medium py-4 px-10 rounded-lg"
+              >
                 Sign up
               </button>
               <p class="text-xs text-gray-400 mt-6">
@@ -83,6 +86,11 @@
 
 <script>
 export default {
-  name: 'AboutComponent'
+  name: 'AboutComponent',
+  methods: {
+    navigateToSignUp() {
+      this.$router.push('/sign-up')
+    }
+  }
 }
 </script>

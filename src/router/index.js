@@ -47,8 +47,9 @@ const routes = [
     component: MyJobsPage,
     meta: { title: 'My Jobs', requiresAuth: true, role: 'Talent' }
   },
+
   {
-    path: '/talent/job-details',
+    path: '/talent/job-details/:jobId',
     name: 'JobDetailsPage',
     component: JobDetailsPage,
     meta: { title: 'Job Details', requiresAuth: true, role: 'Talent' }
@@ -117,7 +118,7 @@ const routes = [
     name: 'MessagePage',
     component: MessagePage,
     meta: { title: 'Messages', requiresAuth: true, role: 'SME' }
-  },
+  }
 ]
 
 const router = createRouter({
