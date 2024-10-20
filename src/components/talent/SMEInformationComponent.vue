@@ -33,7 +33,7 @@
     </div>
     <div class="contact-info">
       <p class="text-lg font-semibold mb-4">Contact Information</p>
-      <div class="flex flex-row justify-between">
+      <div class="flex flex-row space-x-8">
         <div class="email flex flex-row space-x-2 items-center">
           <img src="/assets/img/email-icon.png" alt="" class="w-5 h-5" />
           <p class="text-sm">{{ email }}</p>

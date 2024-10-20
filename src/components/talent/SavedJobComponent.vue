@@ -1,7 +1,6 @@
 <template>
   <div class="bg-white border border-gray-200 rounded-lg w-fit px-8 py-8">
     <!-- Show this only if active is false -->
-    <p v-if="!active" class="text-xs italic text-gray-400">This job opening is no longer hiring</p>
 
     <div class="components mt-4">
       <div class="flex items-center space-x-2 mb-3">
@@ -12,7 +11,7 @@
       <h2 class="text-xl font-bold text-gray-800">{{ jobTitle }}</h2>
 
       <p class="mt-2 text-xs text-gray-600">
-        {{ location }} | {{ workType }} ({{ hoursPerWeek }}) | {{ workArrangement }}
+        {{ location }} | {{ workType }} | {{ workArrangement }}
       </p>
 
       <p class="text-xs font-semibold text-gray-800 mt-2">Salary: {{ salary }}</p>
@@ -55,7 +54,6 @@ export default {
     jobTitle: String,
     location: String,
     workType: String,
-    hoursPerWeek: String,
     workArrangement: String,
     salary: String,
     status: String,

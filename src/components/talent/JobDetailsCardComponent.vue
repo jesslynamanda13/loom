@@ -10,7 +10,7 @@
         </div>
         <div class="flex space-x-3 mt-3 align-middle items-center text-sm">
           <img src="/assets/img/work-icon.png" class="w-3 h-auto" alt="" />
-          <p class="text-black">{{ workType }} ({{ hoursPerWeek }})</p>
+          <p class="text-black">{{ workType }}</p>
         </div>
         <div class="flex space-x-3 mt-3 align-middle items-center text-sm">
           <img src="/assets/img/wage-icon.png" class="w-4 h-auto" alt="" />
@@ -46,10 +46,6 @@
             </svg>
             Apply Now
           </button>
-
-          <button class="text-sm bg-white border border-black text-black px-4 py-2 rounded-md">
-            Save
-          </button>
         </div>
       </div>
     </div>
@@ -57,7 +53,6 @@
       <div class="border-t border-gray-200"></div>
     </div>
 
-    <!-- Job Description -->
     <div class="mt-6">
       <div class="title flex flex-row gap-2 align-middle items-center">
         <img src="/assets/img/job-desc-icon.png" alt="" class="w-4 h-5" />
@@ -75,9 +70,7 @@
         <img src="/assets/img/qualifications-icon.png" alt="" class="w-5 h-5" />
         <h2 class="text-xl font-bold">Qualifications</h2>
       </div>
-      <ul class="mt-2 list-disc list-inside text-black">
-        <li v-for="qual in qualifications" :key="qual">{{ qual }}</li>
-      </ul>
+      <p>{{ qualifications }}</p>
     </div>
   </div>
 </template>
@@ -129,7 +122,7 @@ export default {
       required: true
     },
     qualifications: {
-      type: Array,
+      type: String,
       required: true
     }
   }

@@ -25,7 +25,8 @@
       </span>
     </div>
     <p class="mt-4 text-sm font-semibold text-black">Job Description:</p>
-    <p class="mt-2 text-xs text-gray-600">{{ jobDescription }}</p>
+    <p class="mt-2 text-xs text-gray-600">{{ truncatedJobDescription }}</p>
+
     <div class="mt-4 flex flex-col space-y-3">
       <div class="flex flex-row justify-between">
         <button
@@ -83,6 +84,7 @@
 export default {
   name: 'JobCardComponent',
   props: {
+    jobId: String,
     companyName: String,
     jobTitle: String,
     location: String,
@@ -96,9 +98,20 @@ export default {
       required: true
     }
   },
+  computed: {
+    truncatedJobDescription() {
+      if (this.jobDescription.length > 100) {
+        return this.jobDescription.slice(0, 100) + '...'
+      }
+      return this.jobDescription
+    }
+  },
   methods: {
     navigateToJobDetails() {
-      this.$router.push({ name: 'JobDetailsPage' })
+      this.$router.push({
+        name: 'JobDetailsPage',
+        params: { jobId: this.jobId }
+      })
     },
     applyJob() {
       this.$emit('applyJob')
@@ -109,30 +122,30 @@ export default {
 
 <style scoped>
 .job-card {
-  max-width: 350px; /* Smaller width for desktop */
+  max-width: 350px;
 }
 
 @media (max-width: 640px) {
   .job-card {
-    max-width: 100%; /* Full width on smaller screens */
+    max-width: 100%;
   }
 
   .px-6 {
-    padding-left: 1rem; /* Adjust padding for smaller screens */
+    padding-left: 1rem;
     padding-right: 1rem;
   }
 
   .py-4 {
-    padding-top: 1rem; /* Adjust padding for smaller screens */
+    padding-top: 1rem;
     padding-bottom: 1rem;
   }
 
   .text-xl {
-    font-size: 1.25rem; /* Smaller font size for title */
+    font-size: 1.25rem;
   }
 
   .w-full {
-    width: 100%; /* Ensure buttons take full width */
+    width: 100%;
   }
 }
 </style>
