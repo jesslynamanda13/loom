@@ -41,7 +41,7 @@ import WarningMessage from '@/components/notification/WarningMessage.vue'
 import SuccessMessage from '@/components/notification/SuccessMessage.vue'
 
 export default {
-  name: 'TalentProfilePage',
+  name: 'TalentCVPortfolioPage',
   components: {
     TalentSideBarComponent,
     TalentProfileComponent,

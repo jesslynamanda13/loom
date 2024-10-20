@@ -43,7 +43,6 @@
             <img src="/assets/img/filter-icon.png" alt="" class="w-4" />
           </div>
 
-          <!-- Work Arrangement Dropdown -->
           <div class="relative inline-block">
             <button
               @click="toggleWorkArrangementDropdown"
@@ -81,7 +80,6 @@
               </svg>
             </button>
 
-            <!-- Dropdown menu -->
             <div
               v-if="isWorkArrangementDropdownOpen"
               id="workArrangementDropdown"
@@ -117,7 +115,6 @@
             </div>
           </div>
 
-          <!-- Job Type Dropdown -->
           <div class="cursor-pointer relative inline-block">
             <button
               @click="toggleJobTypeDropdown"
@@ -233,7 +230,6 @@
               </svg>
             </button>
 
-            <!-- Dropdown menu for skills -->
             <div
               v-if="isSkillsDropdownOpen"
               class="z-10 absolute font-medium bg-white border border-black rounded-lg shadow w-64 mt-1 max-h-64 overflow-auto"
@@ -355,6 +351,7 @@ import TalentNavbarComponent from '@/components/talent/navigation/TalentNavbarCo
 import JobCardComponent from '@/components/talent/JobCardComponent.vue'
 import FooterComponent from '@/components/FooterComponent.vue'
 import JobApplicationModalComponent from '@/components/talent/application/JobApplicationModalComponent.vue'
+import SkillsService from '@/services/SkillsService'
 
 export default {
   name: 'ExploreJobsPage',
@@ -373,39 +370,11 @@ export default {
       selectedJobType: 'Type',
       isSkillsDropdownOpen: false,
       selectedSkills: [],
-      skills: [
-        'Business Management',
-        'Digital Marketing',
-        'Data Analysis',
-        'Software Development',
-        'Project Management',
-        'Graphic Design',
-        'Financial Analysis',
-        'Communication',
-        'Sales Strategy',
-        'Customer Service',
-        'Social Media Management',
-        'Leadership',
-        'UX/UI Design',
-        'Negotiation',
-        'Public Speaking',
-        'Networking',
-        'Coding',
-        'Content Creation',
-        'Research',
-        'Time Management',
-        'Web Development',
-        'SEO (Search Engine Optimization)',
-        'Copywriting',
-        'Video Editing',
-        'Photography',
-        'Virtual Assistance',
-        'Translation',
-        'App Development',
-        'E-commerce Management',
-        'Affiliate Marketing'
-      ]
+      skills: []
     }
+  },
+  created() {
+    this.fetchSkills()
   },
   computed: {
     selectedOptionClass() {
@@ -438,6 +407,15 @@ export default {
     }
   },
   methods: {
+    async fetchSkills() {
+      try {
+        const response = await SkillsService.getAllSkills()
+        console.log(response['data'])
+        this.skills = response['data'].skills.map((skill) => skill.SkillName)
+      } catch (error) {
+        console.log(error)
+      }
+    },
     toggleWorkArrangementDropdown() {
       this.isWorkArrangementDropdownOpen = !this.isWorkArrangementDropdownOpen
     },
