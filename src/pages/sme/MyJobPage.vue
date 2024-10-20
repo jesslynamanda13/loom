@@ -15,22 +15,11 @@
 
         <template v-else>
           <button @click="backToJobList" class="flex items-center text-gray-500 mb-5">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="size-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
             </svg>
           </button>
-          <JobDetailComponent :job="selectedJob" candidates="applicantsList" />
+          <JobDetailComponent :job="selectedJob" :candidates="applicantsList" />
         </template>
       </div>
     </section>
@@ -42,6 +31,7 @@ import VacanciesList from '@/components/sme/dashboard/CurrentVacancyComponent.vu
 import SideBarComponent from '@/components/sme/navigation/SideBarComponent.vue'
 import ApplicantsList from '@/components/sme/job/ApplicantsComponent.vue'
 import JobDetailComponent from '@/components/sme/job/JobDetailComponent.vue'
+import SMEService from '@/services/SMEService';
 
 export default {
   name: 'MyJobPage',
@@ -55,6 +45,7 @@ export default {
     return {
       isSidebarCollapsed: false,
       selectedJob: null,
+      jobs: [],
       applicantsList: [
         {
           fullName: 'Ahmad Pratama',
@@ -187,63 +178,47 @@ export default {
           profilePicture: '/public/assets/img/profile-pic-13.jpg'
         }
       ],
-      jobs: [
-        {
-          title: 'Instagram Admin',
-          description:
-            'Manage daily postings, stories, and engagement on our Instagram page. Responsible for content scheduling and follower interaction.',
-          qualifications:
-            'Experience managing social media platforms, especially Instagram. Knowledge of content creation and analytics tools.',
-          type: 'Part-time',
-          arrangement: 'Remote',
-          wage: 'IDR 100,000/hour',
-          active: true,
-          createdAt: '3 October 2024',
-          location: 'Bali, Indonesia',
-          skills: [
-            'Social Media Management',
-            'Content Creation',
-            'Analytics',
-            'Customer Engagement'
-          ],
-          applicants: 37
-        },
-        {
-          title: 'Graphic Designer',
-          description:
-            'Create visually stunning designs for both print and digital media. Collaborate with the marketing team to ensure cohesive branding across all channels.',
-          qualifications:
-            'Proficiency in Adobe Creative Suite (Photoshop, Illustrator). A strong portfolio showcasing both print and digital design projects.',
-          type: 'Freelance',
-          arrangement: 'Hybrid',
-          wage: 'IDR 150,000/hour',
-          active: true,
-          createdAt: '2 October 2024',
-          location: 'Bandung, Indonesia',
-          skills: ['Adobe Photoshop', 'Illustrator', 'Branding', 'Typography', 'Print Design'],
-          applicants: 22
-        }
-      ]
-    }
+    };
   },
   computed: {
     sidebarWidthClass() {
-      return this.isSidebarCollapsed ? 'w-16' : 'w-64'
+      return this.isSidebarCollapsed ? 'w-16' : 'w-64';
     },
     mainContentWidthClass() {
-      return this.isSidebarCollapsed ? 'w-[calc(100%-4rem)]' : 'w-[calc(100%-16rem)]'
+      return this.isSidebarCollapsed ? 'w-[calc(100%-4rem)]' : 'w-[calc(100%-16rem)]';
     }
   },
   methods: {
     toggleSidebar() {
-      this.isSidebarCollapsed = !this.isSidebarCollapsed
+      this.isSidebarCollapsed = !this.isSidebarCollapsed;
     },
     goToJobDetail(job) {
-      this.selectedJob = job
+      this.selectedJob = job;
     },
     backToJobList() {
-      this.selectedJob = null
+      this.selectedJob = null;
+    },
+    async fetchJobs() {
+      try {
+        const jobs = await SMEService.getAllJobs();
+        this.jobs = jobs.map(job => ({
+          id: job.JobID,
+          title: job.JobTitle,
+          description: job.JobDescription,
+          type: job.JobType,
+          arrangement: job.JobArrangement,
+          wage: job.Wage,
+          createdAt: job.CreatedAt,
+          location: job.Location,
+          qualifications: job.Qualification
+        }));
+      } catch (error) {
+        console.error('Error fetching jobs:', error);
+      }
     }
+  },
+  mounted() {
+    this.fetchJobs();
   }
-}
+};
 </script>

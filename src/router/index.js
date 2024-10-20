@@ -14,6 +14,7 @@ import TalentDetailComponent from '@/components/sme/search/TalentDetailComponent
 import JobDetailsPage from '@/pages/talent/JobDetailsPage.vue'
 import MyJobPage from '@/pages/sme/MyJobPage.vue'
 import TalentCVPortfolioPage from '@/pages/talent/profile/TalentCVPortfolioPage.vue'
+import MessagePage from '@/pages/sme/MessagePage.vue'
 
 const routes = [
   {
@@ -97,7 +98,7 @@ const routes = [
     path: '/sme/myjob',
     name: 'MyJobPage',
     component: MyJobPage,
-    meta: { title: 'Job Openings' }
+    meta: { title: 'Job Openings', requiresAuth: true, role: 'SME' }
   },
   {
     path: '/sme/profile',
@@ -110,7 +111,13 @@ const routes = [
     name: 'TalentDetailPage',
     component: TalentDetailComponent,
     meta: { title: 'Talent Details', requiresAuth: true, role: 'SME' }
-  }
+  },
+  {
+    path: '/sme/message',
+    name: 'MessagePage',
+    component: MessagePage,
+    meta: { title: 'Messages', requiresAuth: true, role: 'SME' }
+  },
 ]
 
 const router = createRouter({
