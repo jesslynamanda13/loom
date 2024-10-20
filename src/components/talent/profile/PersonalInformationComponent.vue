@@ -4,6 +4,10 @@
       <div class="personal-information">
         <div class="title">
           <p class="font-bold text-lg">Personal Information</p>
+          <p class="mt-2 text-sm text-gray-600">
+            Make it easy for employers to get in touch and learn more about you. Provide accurate
+            and up-to-date personal information.
+          </p>
         </div>
         <div class="information">
           <div class="fullname flex flex-col space-y-4 mt-6">

@@ -2,7 +2,7 @@
   <div class="flex flex-col">
     <div class="flex flex-row mt-12 space-x-4">
       <div :class="sidebarWidthClass">
-        <TalentSideBarComponent @toggle="toggleSidebar" :currentPage="'/talent/profile'" />
+        <TalentSideBarComponent @toggle="toggleSidebar" :currentPage="'/talent/cv-portfolio'" />
       </div>
 
       <div :class="[mainContentWidthClass, 'flex flex-col space-y-4 mb-12 px-12']">
@@ -12,19 +12,19 @@
           @dismiss="dismissSuccessMessage"
         />
         <WarningMessage v-if="warningMessage" :warningMessage="warningMessage" />
-        <p class="text-2xl font-bold">Profile</p>
-        <TalentProfileComponent
-          v-if="talentProfile.FullName && talentProfile.Bio && talentProfile.Location"
-          :fullName="talentProfile.FullName"
-          :initialBio="talentProfile.Bio"
-          :initialLocation="talentProfile.Location"
+        <p class="text-2xl font-bold">CV & Portfolio</p>
+        <p class="mt-2 text-sm text-gray-600">
+          Upload your latest CV and portfolio so recruiters can review them.
+        </p>
+        <div class="mt-4 components flex flex-col space-y-4"></div>
+        <TalentCVComponent
+          v-if="talentProfile"
+          :initialCV="talentProfile.CV"
           @changes-saved="onChangesSaved"
         />
-
-        <PersonalInformationComponent
-          :full-name="talentProfile.FullName"
-          :email="talentProfile.Email"
-          :phone-number="talentProfile.PhoneNumber"
+        <TalentPortfolioComponent
+          v-if="portfolios"
+          :initialPortfolio="portfolios"
           @changes-saved="onChangesSaved"
         />
       </div>
@@ -33,31 +33,31 @@
 </template>
 
 <script>
-import PersonalInformationComponent from '@/components/talent/profile/PersonalInformationComponent.vue'
+import TalentCVComponent from '@/components/talent/profile/TalentCVComponent.vue'
 import TalentService from '@/services/TalentService'
+import PortfolioService from '@/services/PortfolioService'
 import TalentSideBarComponent from '@/components/talent/profile/TalentSideBarComponent.vue'
-import TalentProfileComponent from '@/components/talent/profile/TalentProfileComponent.vue'
 import WarningMessage from '@/components/notification/WarningMessage.vue'
 import SuccessMessage from '@/components/notification/SuccessMessage.vue'
+import TalentPortfolioComponent from '@/components/talent/profile/TalentPortfolioComponent.vue'
 
 export default {
   name: 'TalentCVPortfolioPage',
   components: {
     TalentSideBarComponent,
-    TalentProfileComponent,
-    PersonalInformationComponent,
+    TalentCVComponent,
     WarningMessage,
-    SuccessMessage
+    SuccessMessage,
+    TalentPortfolioComponent
   },
   data() {
     return {
       talentProfile: {},
-      bio: '',
-      location: '',
-      skills: [],
+      CV: '',
       isSidebarCollapsed: false,
       warningMessage: '',
-      successMessage: ''
+      successMessage: '',
+      portfolios: []
     }
   },
   computed: {
@@ -74,6 +74,8 @@ export default {
       setTimeout(() => {
         this.successMessage = ''
       }, 3000)
+      this.fetchTalentProfile()
+      this.fetchTalentPortofolio()
     },
     toggleSidebar() {
       this.isSidebarCollapsed = !this.isSidebarCollapsed
@@ -82,12 +84,22 @@ export default {
       try {
         const response = await TalentService.getTalentProfile()
         this.talentProfile = response
-        this.bio = response.Bio
-        this.location = response.Location
-        this.skills = response.Skills
+        this.CV = response.CV
 
-        console.log('Bio:', this.bio)
-        if (this.skills.length === 0 || this.bio === '' || this.location === '') {
+        if (this.CV === '') {
+          this.warningMessage =
+            'Your profile seems to be incomplete. Please provide more details to attract employers.'
+        }
+      } catch (error) {
+        console.error('Error fetching talent profile:', error)
+      }
+    },
+    async fetchTalentPortofolio() {
+      try {
+        const response = await PortfolioService.getPortfolio()
+        this.portfolios = response.data['Data']
+        console.log('Fetched Portfolio:', response.data['Data'])
+        if (this.portfolios.length === 0) {
           this.warningMessage =
             'Your profile seems to be incomplete. Please provide more details to attract employers.'
         }
@@ -102,10 +114,7 @@ export default {
   },
   async mounted() {
     await this.fetchTalentProfile()
+    await this.fetchTalentPortofolio()
   }
 }
 </script>
-
-<style scoped>
-/* Add styles for sidebar and layout if needed */
-</style>

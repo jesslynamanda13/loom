@@ -105,7 +105,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-/* Add styles for sidebar and layout if needed */
-</style>

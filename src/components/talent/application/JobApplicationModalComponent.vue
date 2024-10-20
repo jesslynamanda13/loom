@@ -92,7 +92,6 @@
           </div>
         </div>
 
-        <!-- CV and Portfolio Section -->
         <div v-if="step === 'cvPortfolio'">
           <div class="mt-4 cv-portfolio w-full">
             <p class="text-lg font-semibold">CV and Portfolio</p>
@@ -114,41 +113,15 @@
                 </span>
               </div>
             </div>
-
-            <!-- Portfolio Upload Field -->
             <div class="mt-6 flex flex-col space-y-4">
-              <div class="flex flex-row justify-between">
+              <div class="flex flex-col space-y-2">
                 <p class="text-lg font-semibold">Portfolio</p>
-                <img src="/assets/img/edit-icon.png" class="w-6 h-6" alt="" />
-              </div>
-              <div class="portfolio-card w-full">
-                <div class="bg-white rounded-lg border border-gray-300 p-6 w-fit">
-                  <!-- Image Section -->
-                  <div class="image-section mb-4">
-                    <img src="/assets/img/port-img.png" alt="Libeery App" class="rounded-lg w-64" />
-                  </div>
-
-                  <!-- Title and Description -->
-                  <div class="text-section">
-                    <h2 class="text-lg font-bold">Libeery - Mobile App</h2>
-                    <p class="text-xs text-gray-400 mt-2">Description</p>
-                    <p class="text-sm text-gray-600 mt-1 w-64">
-                      Libeery allows Binusians to efficiently manage their library needs by
-                      reserving lockers for immediate or future use.
-                    </p>
-                  </div>
-
-                  <div class="link-section mt-4">
-                    <p class="font-bold text-black">Link</p>
-                    <a
-                      href="https://libeery.com"
-                      class="text-sm block mt-2 border border-black rounded-md px-4 py-2 w-fit underline"
-                      target="_blank"
-                    >
-                      https://libeery.com
-                    </a>
-                  </div>
-                </div>
+                <PortfolioCardComponent
+                  title="Libeery - Mobile App"
+                  description="Libeery allows Binusians to efficiently manage their library needs by reserving lockers for immediate or future use."
+                  imageSrc="/assets/img/port-img.png"
+                  link="https://libeery.com"
+                />
               </div>
             </div>
 
@@ -184,8 +157,13 @@
 </template>
 
 <script>
+import PortfolioCardComponent from '../profile/PortfolioCardComponent.vue'
+
 export default {
   name: 'JobApplicationModalComponent',
+  components: {
+    PortfolioCardComponent
+  },
   data() {
     return {
       step: 'contactInfo',
