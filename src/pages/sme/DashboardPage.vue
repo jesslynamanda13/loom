@@ -15,14 +15,8 @@
             <RecentApplicants />
           </div>
           
-          <div class="w-1/2 flex flex-col gap-4">
-            <div>
-              <NotificationComponent />
-            </div>
-            
-            <div>
-              <MessageComponent />
-            </div>
+          <div class="w-1/2">  
+            <MessageComponent />
           </div>
         </div>
       </div>
@@ -34,7 +28,6 @@
   import SideBarComponent from '@/components/sme/navigation/SideBarComponent.vue';
   import VacanciesList from '@/components/sme/dashboard/CurrentVacancyComponent.vue'; 
   import RecentApplicants from '@/components/sme/dashboard/RecentApplicants.vue';
-  import NotificationComponent from '@/components/sme/dashboard/NotificationComponent.vue';
   import MessageComponent from '@/components/sme/dashboard/QuickMessageComponent.vue';
 
   export default {
@@ -43,7 +36,6 @@
       SideBarComponent,
       VacanciesList,
       RecentApplicants,
-      NotificationComponent,
       MessageComponent,
     },
     data() {

@@ -90,31 +90,20 @@
           />
         </div>
   
-        <div class="mb-4">
+        <div class="mb-10">
           <label class="block text-sm font-medium mb-1" for="skills">Skills <span class="text-red-700"> * </span></label>
+          
           <div class="flex flex-wrap items-center gap-2">
             <span v-for="(tag, index) in form.skills" :key="index" class="bg-orange-100 text-red-700 px-3 py-1 rounded-lg mr-2 items-center justify-start">
-              {{ tag }}
+              {{ tag.skillName }}
               <button @click="removeTag(index)" class="ml-2 text-gray-400 focus:outline-none justify-end items-center">x</button>
             </span>
-            <input 
-              type="text" 
-              v-model="newTag" 
-              @keydown.enter.prevent="addTag"
-              placeholder="+ Add Skills"
-              class="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-300"
-            />
+            
+            <select v-model="selectedSkill" @change="addTag" class="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-300">
+              <option disabled value="">+ Select a Skill</option>
+              <option v-for="skill in skills" :key="skill.SkillID" :value="skill">{{ skill.SkillName }}</option>
+            </select>
           </div>
-        </div>
-  
-        <div class="mb-4 flex items-center">
-          <label class="block text-sm font-medium mr-4" for="postNow">Post This Job Right Now?</label>
-          <input 
-            type="checkbox" 
-            v-model="form.postNow" 
-            id="postNow"
-            class="toggle-checkbox"
-          />
         </div>
   
         <div class="flex justify-end">
@@ -131,6 +120,8 @@
 </template>
   
 <script>
+import SMEService from '@/services/SMEService';
+
   export default {
     name: 'PostJobFormComponent',
     data() {
@@ -144,21 +135,36 @@
           arrangement: 'Onsite',
           wage: '',
           skills: [],
-          postNow: false,
         },
-        newTag: '',
+        skills: [], 
+        selectedSkill: null,
       };
     },
+    mounted() {
+      this.fetchSkills();
+    },
     methods: {
+      async fetchAllSkills() {
+        try {
+          const skills = await SMEService.getAllSkills();
+          if (skills && skills.length > 0) {
+            this.skills = skills;
+          }
+        } catch (error) {
+          console.error('Error fetching skills:', error);
+        }
+      },
       createJob() {
         console.log(this.form);
       },
       addTag() {
-        const trimmedTag = this.newTag.trim();
-        if (trimmedTag && !this.form.skills.includes(trimmedTag)) {
-          this.form.skills.push(trimmedTag);
+        if (this.selectedSkill) {
+          this.form.skills.push({
+            skillID: this.selectedSkill.SkillID,
+            skillName: this.selectedSkill.SkillName
+          });
+          this.selectedSkill = null;
         }
-        this.newTag = '';
       },
       removeTag(index) {
         this.form.skills.splice(index, 1);
@@ -166,21 +172,4 @@
     },
   };
 </script>
-  
-<style scoped>
-  .toggle-checkbox {
-    width: 1.5rem;
-    height: 1.5rem;
-    border: 1px solid #d1d5db;
-    border-radius: 0.375rem;
-    cursor: pointer;
-    outline: none;
-    appearance: none;
-    background-color: white;
-    transition: all 0.2s;
-  }
-  .toggle-checkbox:checked {
-    background-color: #74C68A;
-  }
-</style>
   

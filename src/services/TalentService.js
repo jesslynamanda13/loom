@@ -48,7 +48,32 @@ const TalentService = {
       console.error('Error fetching talent profile:', error)
       throw error
     }
-  }
+  },
+
+  async getAllTalents() {
+    try {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        throw new Error('Token not found');
+      }
+
+      const response = await api.get('/private/get-all-talent', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.data || !response.data.Talents) {
+        throw new Error('No talents found');
+      }
+
+      console.log('Fetched Talents:', response.data.Talents);
+      return response.data.Talents;
+    } catch (error) {
+      console.error('Error fetching talents:', error);
+      throw error;
+    }
+  },  
 }
 
 export default TalentService
